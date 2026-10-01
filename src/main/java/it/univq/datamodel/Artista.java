@@ -1,15 +1,17 @@
 package it.univq.datamodel;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public abstract class Artista {
     private String nomeArte;
     private String biografia;
-    private boolean isGroup;// serve per indicare se è un gruppo
-    private GenereMusicale genereArtista;
+    private GenereMusicale generePrincipale;
+    private Set<Album> discografia= new HashSet<>();
 
     public Artista(String nomeArte, String biografia, boolean isGroup) {
         this.nomeArte = nomeArte;
         this.biografia = biografia;
-        this.isGroup = isGroup;
     }
 
     public String getNomeArte() {
@@ -28,19 +30,11 @@ public abstract class Artista {
         this.biografia = biografia;
     }
 
-    public boolean isGroup() {
-        return isGroup;
-    }
-
-    public void setGroup(boolean group) {
-        isGroup = group;
-    }
-
     public GenereMusicale getGenereArtista() {
-        return genereArtista;
+        return generePrincipale;
     }
 
     public void setGenereArtista(GenereMusicale genereArtista) {
-        this.genereArtista = genereArtista;
+        this.generePrincipale = genereArtista;
     }
 }

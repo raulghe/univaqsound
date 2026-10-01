@@ -1,20 +1,41 @@
 package it.univq.datamodel;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Utente {
     private String nome;
     private String cognome;
     private String email;
     private LocalDate dataDiNascita;
-    private boolean isAdministrator;
+    private List<Playlist> playlist;
+    private CronologiaAscolti cronologia;
+    private Set<GenereMusicale> preferenzeMusicali=new HashSet<>(); //uso il set perche non volglio avere duplicati
 
-    public boolean isAdministrator() {
-        return isAdministrator;
+    public Set<GenereMusicale> getPreferenzeMusicali() {
+        return preferenzeMusicali;
     }
 
-    public void setAdministrator(boolean administrator) {
-        isAdministrator = administrator;
+    public void setPreferenzeMusicali(Set<GenereMusicale> preferenzeMusicali) {
+        this.preferenzeMusicali = preferenzeMusicali;
+    }
+
+    public List<Playlist> getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(List<Playlist> playlist) {
+        this.playlist = playlist;
+    }
+
+    public CronologiaAscolti getCronologia() {
+        return cronologia;
+    }
+
+    public void setCronologia(CronologiaAscolti cronologia) {
+        this.cronologia = cronologia;
     }
 
     public LocalDate getDataDiNascita() {
@@ -55,6 +76,6 @@ public class Utente {
         this.cognome = cognome;
         this.email = email;
         this.dataDiNascita = dataDiNascita;
-        this.isAdministrator = isAdministrator;
+
     }
 }

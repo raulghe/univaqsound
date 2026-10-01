@@ -1,5 +1,7 @@
 package it.univq.datamodel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Album {
@@ -9,12 +11,29 @@ public class Album {
     private GenereMusicale genereAlbum;
     private String percorsoCopertina;
     private Artista artistaAlbum;
+    private List<Brano> brani=new ArrayList<>();
 
-    public Album(String titolo, int annoPubblicazione, GenereMusicale genereBrano, String percorsoCopertina,
-            Artista artistaAlbum) {
+    public GenereMusicale getGenereAlbum() {
+        return genereAlbum;
+    }
+
+    public void setGenereAlbum(GenereMusicale genereAlbum) {
+        this.genereAlbum = genereAlbum;
+    }
+
+    public List<Brano> getBrani() {
+        return brani;
+    }
+
+    public void setBrani(List<Brano> brani) {
+        this.brani = brani;
+    }
+
+    public Album(String titolo, int annoPubblicazione, GenereMusicale genereAlbum, String percorsoCopertina,
+                 Artista artistaAlbum) {
         this.titolo = titolo;
         this.annoPubblicazione = annoPubblicazione;
-        this.genereAlbum = genereBrano;
+        this.genereAlbum = genereAlbum;
         this.percorsoCopertina = percorsoCopertina;
         this.artistaAlbum = artistaAlbum;
     }
@@ -33,14 +52,6 @@ public class Album {
 
     public void setTitolo(String titolo) {
         this.titolo = titolo;
-    }
-
-    public GenereMusicale getGenereBrano() {
-        return genereAlbum;
-    }
-
-    public void setGenereBrano(GenereMusicale genereBrano) {
-        this.genereAlbum = genereBrano;
     }
 
     public String getPercorsoCopertina() {

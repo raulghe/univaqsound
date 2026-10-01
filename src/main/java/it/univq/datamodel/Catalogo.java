@@ -1,7 +1,7 @@
 package it.univq.datamodel;
 
 
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Catalogo<T> {
@@ -9,7 +9,7 @@ public class Catalogo<T> {
     private Set<T> elementi; //uso set perché non voglio duplicati nei 3 cataloghi
 
     public Catalogo() {
-        this.elementi = new LinkedHashSet<>();
+        this.elementi = new HashSet<>();
     }
 
     public Set<T> getElementi() {

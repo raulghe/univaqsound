@@ -9,14 +9,14 @@ public class Playlist {
     private String descrizione;
     private LocalDateTime dataCreazione;
     private Utente proprietario;
-    private List<Brano> braniPlaylist;
+    private List<Brano> braniPlaylist= new ArrayList<>();
+
 
     public Playlist(String nome, String descrizione, LocalDateTime dataCreazione, Utente proprietario) {
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataCreazione = dataCreazione;
         this.proprietario = proprietario;
-        this.braniPlaylist= new ArrayList<>();
     }
 
     public String getNome() {
@@ -55,18 +55,5 @@ public class Playlist {
         return braniPlaylist;
     }
 
-    public void aggiungiBrano(Brano brano) {
-        if (brano == null) {
-            throw new IllegalArgumentException("Il brano da aggiungere non può essere nullo.");
-        }
-        this.braniPlaylist.add(brano);
-    }
-
-    public void rimuoviBrano(Brano brano) {
-        if (brano == null) {
-            throw new IllegalArgumentException("Il brano da rimuovere non può essere nullo.");
-        }
-        this.braniPlaylist.remove(brano);
-    }
 
 }

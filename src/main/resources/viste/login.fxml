@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EBB946;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ListView layoutX="209.0" layoutY="100.0" prefHeight="200.0" prefWidth="339.0" />
-      <TextArea layoutX="36.0" layoutY="14.0" prefHeight="78.0" prefWidth="529.0" text="UnivaqSound">
+      <ListView layoutX="222.0" layoutY="112.0" prefHeight="200.0" prefWidth="339.0" />
+      <Label layoutX="176.0" layoutY="31.0" prefHeight="51.0" prefWidth="230.0" text="UnivaqSound" textAlignment="CENTER">
          <font>
-            <Font size="43.0" />
+            <Font name="System Bold" size="35.0" />
          </font>
-      </TextArea>
+      </Label>
    </children>
 </Pane>
