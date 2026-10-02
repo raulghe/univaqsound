@@ -5,14 +5,13 @@ import java.util.List;
 
 public class CronologiaAscolti {
 
-    private List<Brano> cronologia= new ArrayList<>();
+    private List<VoceCronologia> cronologia= new ArrayList<>();
 
-
-    public List<Brano> getCronologia() {
+    public List<VoceCronologia> getCronologia() {
         return cronologia;
     }
 
-    public void setCronologia(List<Brano> cronologia) {
+    public void setCronologia(List<VoceCronologia> cronologia) {
         this.cronologia = cronologia;
     }
 }
