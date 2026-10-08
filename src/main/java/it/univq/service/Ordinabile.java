@@ -1,4 +1,5 @@
 package it.univq.service;
 
-public interface Ordinabile {
+public interface Ordinabile <T>{
+    public void ordina(T o, String parametroOrdinamento);
 }

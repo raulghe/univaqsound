@@ -3,7 +3,7 @@ package it.univq.datamodel;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Artista {
+public abstract class Artista implements Ricercabile {
     private String nomeArte;
     private String biografia;
     private GenereMusicale generePrincipale;
@@ -36,5 +36,10 @@ public abstract class Artista {
 
     public void setGenereArtista(GenereMusicale genereArtista) {
         this.generePrincipale = genereArtista;
+    }
+    @Override
+    public boolean trovato(String testo){
+        if(testo.isBlank())return false;
+        return this.nomeArte.toLowerCase().contains(testo.toLowerCase());
     }
 }

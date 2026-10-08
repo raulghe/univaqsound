@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Playlist {
+public class Playlist implements Riproducibile {
     private String nome;
     private String descrizione;
     private LocalDateTime dataCreazione;
@@ -15,7 +15,7 @@ public class Playlist {
     public Playlist(String nome, String descrizione, LocalDateTime dataCreazione, Utente proprietario) {
         this.nome = nome;
         this.descrizione = descrizione;
-        this.dataCreazione = dataCreazione;
+        this.dataCreazione = LocalDateTime.now();
         this.proprietario = proprietario;
     }
 
@@ -53,6 +53,10 @@ public class Playlist {
 
     public List<Brano> getBrani() {
         return braniPlaylist;
+    }
+    @Override
+    public List<Brano> getDaRiprodurre(){
+        return List.copyOf(this.getBrani());
     }
 
 

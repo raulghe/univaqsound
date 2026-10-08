@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Album {
+public class Album implements Riproducibile,Ricercabile{
 
     private String titolo;
     private int annoPubblicazione;
@@ -85,4 +85,14 @@ public class Album {
         return Objects.hash(titolo, artistaAlbum);
     }
 
+    @Override
+    public List<Brano> getDaRiprodurre() {
+        return List.copyOf(this.getBrani());
+    }
+
+    @Override
+    public boolean trovato(String testo){
+        if(testo.isBlank())return false;
+        return this.titolo.toLowerCase().contains(testo.toLowerCase());
+    }
 }

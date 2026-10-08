@@ -1,18 +1,40 @@
 package it.univq.datamodel;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
-public class Brano {
+public class Brano implements Riproducibile ,Ricercabile{
     private String titolo;
-    private int durata;
+    private Integer durata;
     private GenereMusicale genereBrano;
     private Album albumBrano;
+    private Integer numeroAscolti;
+    private LocalDateTime dataAggiunta;
 
     public Brano(String titolo, int durata, GenereMusicale genereBrano, Album albumBrano) {
         this.titolo = titolo;
         this.durata = durata;
         this.genereBrano = genereBrano;
         this.albumBrano = albumBrano;
+        this.numeroAscolti = 0;
+        this.dataAggiunta=LocalDateTime.now();
+    }
+
+    public LocalDateTime getDataAggiunta() {
+        return dataAggiunta;
+    }
+
+    public void setDataAggiunta(LocalDateTime dataAggiunta) {
+        this.dataAggiunta = dataAggiunta;
+    }
+
+    public Integer getNumeroAscolti() {
+        return numeroAscolti;
+    }
+
+    public void setNumeroAscolti(Integer numeroAscolti) {
+        this.numeroAscolti = numeroAscolti;
     }
 
     public String getTitolo() {
@@ -47,13 +69,16 @@ public class Brano {
         this.albumBrano = albumBrano;
     }
 
-    // due brani sono uguali se hanno stesso titolo e la stessa durata (potrei avere stesso brano ma con versioni diverse in due album)
+    // due brani sono uguali se hanno stesso titolo e la stessa durata (potrei avere
+    // stesso brano ma con versioni diverse in due album)
     @Override
-    public boolean equals (Object o){
-        if(this==o) return true;
-        if(o==null || o.getClass() != this.getClass() )return false;
-        Brano brano= (Brano)o;
-        return this.titolo.equals(brano.titolo) && this.durata==brano.durata;
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || o.getClass() != this.getClass())
+            return false;
+        Brano brano = (Brano) o;
+        return this.titolo.equals(brano.titolo) && this.durata == brano.durata;
     }
 
     @Override
@@ -65,4 +90,15 @@ public class Brano {
     public String toString() {
         return titolo + " - " + albumBrano.getArtistaAlbum() + " (" + albumBrano.getTitolo() + ")";
     }
+    @Override
+    public List<Brano> getDaRiprodurre(){
+        return List.of(this);
+    }
+    @Override
+    public boolean trovato(String testo){
+        if(testo.isBlank())return false;
+        return this.titolo.toLowerCase().contains(testo.toLowerCase());
+
+    }
+
 }

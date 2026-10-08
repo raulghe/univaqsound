@@ -1,6 +1,7 @@
 package it.univq.datamodel;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -76,6 +77,7 @@ public class Utente {
         this.cognome = cognome;
         this.email = email;
         this.dataDiNascita = dataDiNascita;
+        this.playlist=new ArrayList<>();
 
     }
 }
