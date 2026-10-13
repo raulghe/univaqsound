@@ -9,9 +9,10 @@ public abstract class Artista implements Ricercabile {
     private GenereMusicale generePrincipale;
     private Set<Album> discografia= new HashSet<>();
 
-    public Artista(String nomeArte, String biografia, boolean isGroup) {
+    public Artista(String nomeArte, String biografia, GenereMusicale generePrincipale) {
         this.nomeArte = nomeArte;
         this.biografia = biografia;
+        this.generePrincipale = generePrincipale;
     }
 
     public String getNomeArte() {
@@ -20,6 +21,14 @@ public abstract class Artista implements Ricercabile {
 
     public void setNomeArte(String nomeArte) {
         this.nomeArte = nomeArte;
+    }
+
+    public Set<Album> getDiscografia() {
+        return discografia;
+    }
+
+    public void setDiscografia(Set<Album> discografia) {
+        this.discografia = discografia;
     }
 
     public String getBiografia() {
