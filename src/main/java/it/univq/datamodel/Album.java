@@ -1,10 +1,13 @@
 package it.univq.datamodel;
 
+import it.univq.service.Ricercabile;
+import it.univq.service.Riproducibile;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Album implements Riproducibile,Ricercabile{
+public class Album implements Riproducibile, Ricercabile {
 
     private String titolo;
     private int annoPubblicazione;

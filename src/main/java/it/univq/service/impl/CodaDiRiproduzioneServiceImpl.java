@@ -4,8 +4,8 @@ import it.univq.datamodel.Album;
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.CodaDiRiproduzione;
 import it.univq.datamodel.Playlist;
-import it.univq.datamodel.Riproducibile;
 import it.univq.service.CodaDiRiproduzioneService;
+import it.univq.service.Riproducibile;
 
 import java.util.List;
 

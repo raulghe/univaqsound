@@ -1,5 +1,7 @@
 package it.univq.datamodel;
 
+import it.univq.service.Riproducibile;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
