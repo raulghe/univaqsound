@@ -1,4 +1,6 @@
-package it.univq.datamodel;
+package it.univq.service;
+
+import it.univq.datamodel.Brano;
 
 import java.util.List;
 

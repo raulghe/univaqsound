@@ -1,4 +1,4 @@
-package it.univq.datamodel;
+package it.univq.service;
 
 public interface Ricercabile {
     public boolean trovato(String testo);
