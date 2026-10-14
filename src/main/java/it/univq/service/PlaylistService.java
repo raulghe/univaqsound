@@ -13,4 +13,5 @@ public interface PlaylistService {
     public void creaPlaylist(Playlist p, Utente u);
     public void eliminaPlaylist (Playlist p, Utente u);
     public List<Playlist> getPlaylistUtente(Utente U);
+    public void ordinaBrani(Playlist p, CriterioOrdinamento<Brano> criterio);
 }
