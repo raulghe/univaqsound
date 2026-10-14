@@ -14,4 +14,8 @@ public interface PlaylistService {
     public void eliminaPlaylist (Playlist p, Utente u);
     public List<Playlist> getPlaylistUtente(Utente U);
     public void ordinaBrani(Playlist p, CriterioOrdinamento<Brano> criterio);
+    public Integer calcolaDurataPlaylist(Playlist p);
+    public void spostaSU(Playlist p , Brano b);
+    public void spostaGiu(Playlist p, Brano b);
+    public void riproduciPlaylist(Playlist p);
 }

@@ -2,15 +2,21 @@ package it.univq.service.impl;
 
 import it.univq.datamodel.Brano;
 
+import it.univq.datamodel.CodaDiRiproduzione;
 import it.univq.datamodel.Playlist;
 import it.univq.datamodel.Utente;
+import it.univq.service.CodaDiRiproduzioneService;
 import it.univq.service.CriterioOrdinamento;
+import it.univq.service.PlayerService;
 import it.univq.service.PlaylistService;
 
+import java.util.Collections;
 import java.util.List;
 
 public class PlaylistServiceImpl implements PlaylistService{
-
+    private CodaDiRiproduzioneService coda=new CodaDiRiproduzioneServiceImpl();
+    private PlayerService player= new PlayerServiceImpl();
+    
     @Override
     public void aggiungiBrano(Playlist p, Brano b) {
 
@@ -45,4 +51,33 @@ public class PlaylistServiceImpl implements PlaylistService{
     public List<Playlist> getPlaylistUtente(Utente u) {
         return u.getPlaylist();
     }
+    @Override
+    public Integer calcolaDurataPlaylist(Playlist p) {
+    
+    return p.getBrani().stream().mapToInt(b -> b.getDurata()).sum();
+}
+
+    @Override
+    public void spostaSU(Playlist p , Brano b) {
+    if(!p.getBrani().contains(b)) return;
+    int posizione = p.getBrani().indexOf(b);
+    if(posizione > 0)
+        Collections.swap(p.getBrani(), posizione, posizione-1);
+}
+    @Override
+    public void spostaGiu(Playlist p, Brano b) {
+    if(!p.getBrani().contains(b)) return;
+    int posizione = p.getBrani().indexOf(b);
+    if(posizione < p.getBrani().size()-1)
+        Collections.swap(p.getBrani(), posizione, posizione+1);
+}
+    @Override
+    public void riproduciPlaylist(Playlist p){
+        
+        coda.aggiungiAllaCoda(p);
+       
+        player.play();
+    }
+
+
 }

@@ -16,8 +16,7 @@ public class CodaDiRiproduzioneServiceImpl implements CodaDiRiproduzioneService 
     public void aggiungiAllaCoda(Riproducibile r){
         List<Brano> coda=CodaDiRiproduzione.getIstanza().getCoda();
         if (r instanceof Album || r instanceof Playlist) svuotaCoda();
-        if (coda.containsAll(r.getDaRiprodurre()))return;//da implementare eccezione
-        else coda.addAll(r.getDaRiprodurre());
+        coda.addAll(r.getDaRiprodurre());
     }
 
     //metodo per svuotare la coda a seguto della riproduzione di una playlist

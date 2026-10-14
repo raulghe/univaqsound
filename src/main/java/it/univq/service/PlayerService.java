@@ -4,9 +4,11 @@ import it.univq.datamodel.CodaDiRiproduzione;
 
 public interface PlayerService {
 
-    public void play(CodaDiRiproduzione coda );
-    public void pausa(CodaDiRiproduzione coda);
-    public void avanti(CodaDiRiproduzione coda);
-    public void indietro(CodaDiRiproduzione coda);
+    public void play( );
+    public void pausa();
+    public void avanti();
+    public void indietro();
+    public void cambiaShuffle();
+    public void cambiaModalitaRipetizione();
 
 }
