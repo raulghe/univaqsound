@@ -3,6 +3,7 @@ package it.univq.service.impl;
 import it.univq.datamodel.Album;
 import it.univq.datamodel.Artista;
 import it.univq.datamodel.Libreria;
+import it.univq.datamodel.Brano;
 import it.univq.exception.ArtistaNonTrovatoException;
 
 import it.univq.service.ArtistaService;
@@ -33,5 +34,13 @@ public class ArtistaServiceImpl implements ArtistaService {
         }
         libreria.getArtisti().rimuoviElemento(a);
     }
-
+      @Override
+    public int getAscoltiTotali(Artista a) {
+        int ascolti=0;
+        for(Album album: a.getDiscografia()){
+            for(Brano b: album.getBrani()){
+                ascolti=ascolti+b.getNumeroAscolti();
+            }
+        } return ascolti;
+    }
 }

@@ -1,10 +1,19 @@
 package it.univq.datamodel;
 
+import java.time.LocalDateTime;
+
 public class VoceCronologia {
 
 
     private Brano branoVoce;
-    private int istanteAscolto;
+    private LocalDateTime istanteAscolto;
+    private int durataAscolto;
+    
+    public VoceCronologia(Brano branoVoce, int durataAscolto) {
+        this.branoVoce = branoVoce;
+        this.istanteAscolto = LocalDateTime.now();
+        this.durataAscolto = durataAscolto;
+    }
 
     public Brano getBranoVoce() {
         return branoVoce;
@@ -14,13 +23,11 @@ public class VoceCronologia {
         this.branoVoce = branoVoce;
     }
 
-    public int getIstanteAscolto() {
+    public LocalDateTime getIstanteAscolto() {
         return istanteAscolto;
     }
 
-    public void setIstanteAscolto(int istanteAscolto) {
-        this.istanteAscolto = istanteAscolto;
-    }
+
 
     public int getDurataAscolto() {
         return durataAscolto;
@@ -30,5 +37,5 @@ public class VoceCronologia {
         this.durataAscolto = durataAscolto;
     }
 
-    int durataAscolto;
+    
 }

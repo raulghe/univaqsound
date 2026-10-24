@@ -8,4 +8,5 @@ public interface ArtistaService {
     public Set<Artista> getTuttiArtisti();
     public void aggiungiArtista(Artista a);
     public void rimuoviArtista(Artista a);
+    public int getAscoltiTotali(Artista a);
 }

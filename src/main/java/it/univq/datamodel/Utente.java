@@ -85,6 +85,7 @@ public class Utente {
         this.email = email;
         this.dataDiNascita = dataDiNascita;
         this.playlist=new ArrayList<>();
+        this.cronologia=new CronologiaAscolti();
         this.isAmministratore=isAdministrator;
  
     }
