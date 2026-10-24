@@ -3,6 +3,7 @@ package it.univq.service.impl;
 import it.univq.datamodel.Album;
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.Libreria;
+import it.univq.exception.BranoNonTrovatoException;
 import it.univq.service.BranoService;
 
 import java.util.Set;
@@ -24,6 +25,9 @@ public class BranoServiceImpl implements BranoService {
     }
     @Override
     public void rimuoviBrano(Brano b){
+        if(!libreria.getBrani().getElementi().contains(b)){
+            throw new BranoNonTrovatoException("Operazione fallita. Il brano" +b.getTitolo()+ "non è presente.");
+        }
         libreria.getBrani().rimuoviElemento(b);
     }
 

@@ -3,6 +3,8 @@ package it.univq.service.impl;
 import it.univq.datamodel.Album;
 import it.univq.datamodel.Artista;
 import it.univq.datamodel.Libreria;
+import it.univq.exception.AlbumNonTrovatoException;
+
 import it.univq.service.AlbumService;
 
 import java.util.Set;
@@ -28,6 +30,9 @@ public class AlbumServiceImpl implements AlbumService {
     //qui devo rimuovere anche tutti i brani dell album
     @Override
     public void rimuoviAlbum(Album a){
+        if(!libreria.getAlbum().getElementi().contains(a)){
+            throw new AlbumNonTrovatoException("Operazione fallita. L'album"+ a.getTitolo()+" non esiste.");
+        }
         libreria.getBrani().getElementi().removeAll(a.getBrani());
         libreria.getAlbum().rimuoviElemento(a);
     }

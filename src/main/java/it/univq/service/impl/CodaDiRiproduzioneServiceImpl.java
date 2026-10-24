@@ -4,6 +4,7 @@ import it.univq.datamodel.Album;
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.CodaDiRiproduzione;
 import it.univq.datamodel.Playlist;
+import it.univq.exception.RiproducibileVuotoException;
 import it.univq.service.CodaDiRiproduzioneService;
 import it.univq.service.Riproducibile;
  
@@ -14,6 +15,9 @@ public class CodaDiRiproduzioneServiceImpl implements CodaDiRiproduzioneService 
  
     @Override   //quando aggiungo se è un album o una playlist svuoto la coda
     public void aggiungiAllaCoda(Riproducibile r){
+        if(r.getDaRiprodurre().isEmpty()){
+            throw new RiproducibileVuotoException("Impossibile riprodurre: non contiene brani.");
+        }
         List<Brano> coda=CodaDiRiproduzione.getIstanza().getCoda();
         if (r instanceof Album || r instanceof Playlist){
             svuotaCoda();

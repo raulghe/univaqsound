@@ -4,6 +4,10 @@ import it.univq.datamodel.Brano;
  
 import it.univq.datamodel.Playlist;
 import it.univq.datamodel.Utente;
+import it.univq.exception.BranoNonTrovatoException;
+import it.univq.exception.DuplicatoException;
+import it.univq.exception.PlaylistNonTrovataException;
+
 import it.univq.service.CodaDiRiproduzioneService;
 import it.univq.service.CriterioOrdinamento;
 import it.univq.service.PlayerService;
@@ -18,13 +22,17 @@ public class PlaylistServiceImpl implements PlaylistService{
    
     @Override
     public void aggiungiBrano(Playlist p, Brano b) {
- 
+        if(p.getBrani().contains(b)){
+            throw new DuplicatoException("Operazione fallita. Il brano" +b.getTitolo()+ " è gia presente in: " + p.getNome()+".");
+        }
         p.getBrani().add(b);
     }
  
     @Override
     public void rimuoviBrano(Playlist p, Brano b) {
- 
+        if(!p.getBrani().contains(b)){
+            throw new BranoNonTrovatoException("Operazione fallita. Il brano" +b.getTitolo()+ "non è presente in " +p.getNome()+".");
+        }
         p.getBrani().remove(b);
  
     }
@@ -43,7 +51,10 @@ public class PlaylistServiceImpl implements PlaylistService{
  
     @Override
     public void eliminaPlaylist(Playlist p, Utente u) {
-        if(u.getPlaylist().contains(p)) u.getPlaylist().remove(p);
+        if(!u.getPlaylist().contains(p)){
+            throw new PlaylistNonTrovataException("Operazione fallita. La playlist" +p.getNome()+" non esiste.");
+        }
+        u.getPlaylist().remove(p);
     }
  
     @Override
@@ -58,21 +69,25 @@ public class PlaylistServiceImpl implements PlaylistService{
  
     @Override
     public void spostaSU(Playlist p , Brano b) {
-    if(!p.getBrani().contains(b)) return;
+    if(!p.getBrani().contains(b)){
+        throw new BranoNonTrovatoException("Il brano" + b.getTitolo() + " non è presente in " + p.getNome()+".");
+    }
     int posizione = p.getBrani().indexOf(b);
     if(posizione > 0)
         Collections.swap(p.getBrani(), posizione, posizione-1);
 }
     @Override
     public void spostaGiu(Playlist p, Brano b) {
-    if(!p.getBrani().contains(b)) return;
+    if(!p.getBrani().contains(b)){
+        throw new BranoNonTrovatoException("Il brano" + b.getTitolo() + " non è presente in " + p.getNome()+".");
+    }
     int posizione = p.getBrani().indexOf(b);
     if(posizione < p.getBrani().size()-1)
         Collections.swap(p.getBrani(), posizione, posizione+1);
 }
     @Override
     public void riproduciPlaylist(Playlist p){
-       
+        
         coda.aggiungiAllaCoda(p);
        
         player.play();

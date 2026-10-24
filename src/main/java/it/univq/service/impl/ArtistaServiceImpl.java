@@ -3,6 +3,8 @@ package it.univq.service.impl;
 import it.univq.datamodel.Album;
 import it.univq.datamodel.Artista;
 import it.univq.datamodel.Libreria;
+import it.univq.exception.ArtistaNonTrovatoException;
+
 import it.univq.service.ArtistaService;
 
 import java.util.Set;
@@ -21,6 +23,9 @@ public class ArtistaServiceImpl implements ArtistaService {
     //qui devo rimuovere tutti gli album (brani associati all album) e artista selezionato
     @Override
     public void rimuoviArtista(Artista a){
+        if(!libreria.getArtisti().getElementi().contains(a)){
+            throw new ArtistaNonTrovatoException("Operazione fallita. L'artista"+ a.getNomeArte()+" non è presente.");
+        }
         Set<Album>  daEliminare= libreria.getAlbum().getElementi().stream().filter(album -> album.getArtistaAlbum().equals(a)).collect(Collectors.toSet());
         for (Album album : daEliminare) {
                 libreria.getBrani().getElementi().removeAll(album.getBrani());
