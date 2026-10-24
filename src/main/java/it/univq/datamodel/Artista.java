@@ -3,6 +3,7 @@ package it.univq.datamodel;
 import it.univq.service.Ricercabile;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public abstract class Artista implements Ricercabile {
@@ -16,6 +17,23 @@ public abstract class Artista implements Ricercabile {
         this.biografia = biografia;
         this.generePrincipale = generePrincipale;
     }
+
+    
+    @Override 
+    public boolean equals(Object o){
+        if(o == this) 
+            return true;
+        if(o == null || o.getClass() != this.getClass())
+            return false;
+        Artista artista = (Artista) o;
+        return this.nomeArte.equals(artista.nomeArte);
+    }
+
+    @Override 
+    public int hashCode(){
+        return Objects.hash(nomeArte);
+    }
+
 
     public String getNomeArte() {
         return nomeArte;
