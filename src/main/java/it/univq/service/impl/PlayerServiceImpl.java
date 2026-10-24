@@ -5,6 +5,8 @@ import java.util.Random;
  
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.CodaDiRiproduzione;
+import it.univq.datamodel.Utente;
+import it.univq.service.CronologiaService;
 import it.univq.service.PlayerService;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -12,8 +14,11 @@ import javafx.scene.media.MediaPlayer;
 public class PlayerServiceImpl implements PlayerService {
     private final CodaDiRiproduzione coda=CodaDiRiproduzione.getIstanza();
     private MediaPlayer mediaPlayer;
-    private int ultimoIndice=-1;  //lo uso per capire se play viene dallo stesso brano  o a seguito di avanti o indietro
- 
+    private int ultimoIndice=-1;//lo uso per capire se play viene dallo stesso brano  o a seguito di avanti o indietro
+    private Utente utenteCorrente;
+    private final CronologiaService cronologiaService=new CronologiaServiceImpl();
+    
+
     @Override
     public void play(){
         if(coda.getCoda().isEmpty())return;
@@ -28,11 +33,17 @@ public class PlayerServiceImpl implements PlayerService {
  
         //ci arrivo da tasto avanto indietro ,da una riproduzione di un brano cercato , oppure se ho il repeat attivo e ho un solo brano
         if(ultimoIndice!=coda.getIndiceBranoCorrente() || mediaPlayer.getStatus()==MediaPlayer.Status.STOPPED && ultimoIndice==coda.getIndiceBranoCorrente()){
-         //fermo il brano che c'è nel player
+        //fermo il brano che c'è nel player e devo aggiornare la cronologia 
             if (mediaPlayer!=null){
+            mediaPlayer.pause();
+            if(utenteCorrente!=null && ultimoIndice>=0 && ultimoIndice< coda.getCoda().size()&& (int) mediaPlayer.getCurrentTime().toSeconds()!=0){
+                cronologiaService.aggiungiVoce(utenteCorrente, coda.getCoda().get(ultimoIndice), (int) mediaPlayer.getCurrentTime().toSeconds());
+                
+            }
+            
             mediaPlayer.stop();
             mediaPlayer.dispose();
-         }
+         }        
          //carico il nuovo brano e lo riproduco
          Brano branoCorrente =coda.getCoda().get(coda.getIndiceBranoCorrente());
          File file= new File(branoCorrente.getPercorsoFile());
@@ -57,16 +68,25 @@ public class PlayerServiceImpl implements PlayerService {
     public void avanti(){
         Integer indice=coda.getIndiceBranoCorrente();
         if(coda.getCoda().isEmpty())return;
-       //se impostato su casuale genero un indice casuale
-        if (coda.isShuffle()){
+       //se impostato su casuale e ho piu di un brano nella coda  genero un indice casuale,altrimenti non fa nulla(non posso riprodurre brani casuali avendone solo 1 in coda)
+        if (coda.isShuffle() && coda.getCoda().size()>1){
             Random casuale=new Random();
-            int nuovoIndice=casuale.nextInt(coda.getCoda().size());
+            int nuovoIndice;
+            do{
+                 nuovoIndice=casuale.nextInt(coda.getCoda().size());
+            }while (nuovoIndice==ultimoIndice);
             coda.setIndiceBranoCorrente(nuovoIndice);
             this.play();
             return;
         }
-    //se mi trovo a fine coda e ho attivato repeat ripeto la coda, imposto quindi l indice sul primo elemento
+    //se mi trovo a fine coda e ho attivato repeat,ripeto la coda, imposto quindi l indice sul primo elemento
         if (coda.isRepeat() && indice==coda.getCoda().size()-1){
+            mediaPlayer.pause();
+            if(utenteCorrente!=null && ultimoIndice>=0 && ultimoIndice< coda.getCoda().size()&& (int) mediaPlayer.getCurrentTime().toSeconds()!=0){
+                cronologiaService.aggiungiVoce(utenteCorrente, coda.getCoda().get(ultimoIndice), (int) mediaPlayer.getCurrentTime().toSeconds());
+                
+            }
+            
             coda.setIndiceBranoCorrente(0);
             mediaPlayer.stop();
             this.play();
@@ -78,7 +98,11 @@ public class PlayerServiceImpl implements PlayerService {
             this.play();
             return;
         }
-        //sono arrivato alla fine non ho il repeat ne shuffle
+        //sono arrivato alla fine non ho il repeat ne shuffle salvo quindi l ultimo brano nella cronologia e fermo il player
+         if(utenteCorrente!=null && ultimoIndice>=0 && ultimoIndice< coda.getCoda().size()){
+                cronologiaService.aggiungiVoce(utenteCorrente, coda.getCoda().get(ultimoIndice), (int) mediaPlayer.getCurrentTime().toSeconds());
+                
+            }
         mediaPlayer.stop();      
  
     }
@@ -101,6 +125,10 @@ public class PlayerServiceImpl implements PlayerService {
     public void cambiaModalitaRipetizione(){
         if(coda.isRepeat()) coda.setRepeat(false);
         else coda.setRepeat(true);
+    }
+    public void play(Utente u){
+        this.utenteCorrente=u;
+        this.play();
     }
  
 }
