@@ -1,10 +1,11 @@
 package it.univq.datamodel;
 
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Catalogo<T> {
+public class Catalogo<T> implements Serializable {
 
     private Set<T> elementi; //uso set perché non voglio duplicati nei 3 cataloghi
 

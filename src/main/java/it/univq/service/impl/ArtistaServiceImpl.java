@@ -5,7 +5,7 @@ import it.univq.datamodel.Artista;
 import it.univq.datamodel.Libreria;
 import it.univq.datamodel.Brano;
 import it.univq.exception.ArtistaNonTrovatoException;
-
+import it.univq.service.LoggerService;
 import it.univq.service.ArtistaService;
 
 import java.util.Set;
@@ -20,6 +20,7 @@ public class ArtistaServiceImpl implements ArtistaService {
     @Override
     public void aggiungiArtista(Artista a){
         libreria.getArtisti().aggiungiElemento(a);
+        logger.log("AGGIUNTA_ARTISTA", "Artista aggiunto alla libreria: " + a.getNomeArte());
     }
     //qui devo rimuovere tutti gli album (brani associati all album) e artista selezionato
     @Override
@@ -33,6 +34,7 @@ public class ArtistaServiceImpl implements ArtistaService {
                 libreria.getAlbum().rimuoviElemento(album);
         }
         libreria.getArtisti().rimuoviElemento(a);
+        logger.log("RIMOZIONE_ARTISTA", "Artista rimosso dalla libreria: " + a.getNomeArte());
     }
       @Override
     public int getAscoltiTotali(Artista a) {

@@ -1,9 +1,10 @@
 package it.univq.datamodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CronologiaAscolti {
+public class CronologiaAscolti implements Serializable {
 
     private List<VoceCronologia> vociCronologia= new ArrayList<>();
 

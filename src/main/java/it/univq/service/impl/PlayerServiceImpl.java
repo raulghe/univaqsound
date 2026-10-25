@@ -8,6 +8,7 @@ import it.univq.datamodel.CodaDiRiproduzione;
 import it.univq.datamodel.Utente;
 import it.univq.service.CronologiaService;
 import it.univq.service.PlayerService;
+import it.univq.service.LoggerService;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
  
@@ -17,6 +18,7 @@ public class PlayerServiceImpl implements PlayerService {
     private int ultimoIndice=-1;//lo uso per capire se play viene dallo stesso brano  o a seguito di avanti o indietro
     private Utente utenteCorrente;
     private final CronologiaService cronologiaService=new CronologiaServiceImpl();
+    private final LoggerService logger=LoggerServiceImpl.getIstanza();
     
 
     @Override
@@ -129,6 +131,7 @@ public class PlayerServiceImpl implements PlayerService {
     public void play(Utente u){
         this.utenteCorrente=u;
         this.play();
+        logger.log("AVVIO_RIPRODUZIONE", "Brano riprodotto: " + branoCorrente.getTitolo());
     }
  
 }

@@ -1,12 +1,12 @@
 package it.univq.datamodel;
 
 import it.univq.service.Ricercabile;
-
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public abstract class Artista implements Ricercabile {
+public abstract class Artista implements Ricercabile, Serializable {
     private String nomeArte;
     private String biografia;
     private GenereMusicale generePrincipale;

@@ -2,12 +2,12 @@ package it.univq.datamodel;
  
 import it.univq.service.Ricercabile;
 import it.univq.service.Riproducibile;
- 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
  
-public class Brano implements Riproducibile, Ricercabile {
+public class Brano implements Riproducibile, Ricercabile, Serializable {
     private String titolo;
     private Integer durata;
     private GenereMusicale genereBrano;

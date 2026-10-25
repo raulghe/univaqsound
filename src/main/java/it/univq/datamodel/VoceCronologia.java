@@ -1,8 +1,9 @@
 package it.univq.datamodel;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class VoceCronologia {
+public class VoceCronologia implements Serializable {
 
 
     private Brano branoVoce;

@@ -4,7 +4,7 @@ import it.univq.datamodel.Album;
 import it.univq.datamodel.Artista;
 import it.univq.datamodel.Libreria;
 import it.univq.exception.AlbumNonTrovatoException;
-
+import it.univq.service.LoggerService;
 import it.univq.service.AlbumService;
 
 import java.util.Set;
@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class AlbumServiceImpl implements AlbumService {
     private final Libreria libreria= Libreria.getIstanza();
+    private final LoggerService logger = LoggerServiceImpl.getIstanza();
 
     @Override
     public Set<Album> getTuttiAlbum(){
@@ -26,6 +27,7 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public void aggiungiAlbum(Album a){
         libreria.getAlbum().aggiungiElemento(a);
+        logger.log("AGGIUNTA_ALBUM", "Album aggiunto alla libreria: " + a.getTitolo());
     }
     //qui devo rimuovere anche tutti i brani dell album
     @Override
@@ -35,6 +37,7 @@ public class AlbumServiceImpl implements AlbumService {
         }
         libreria.getBrani().getElementi().removeAll(a.getBrani());
         libreria.getAlbum().rimuoviElemento(a);
+        logger.log("RIMOZIONE_ALBUM", "Album rimosso dalla libreria: " + a.getTitolo());
     }
 
 }

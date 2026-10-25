@@ -1,12 +1,12 @@
 package it.univq.datamodel;
 
 import it.univq.service.Riproducibile;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Playlist implements Riproducibile {
+public class Playlist implements Riproducibile, Serializable {
     private String nome;
     private String descrizione;
     private LocalDateTime dataCreazione;

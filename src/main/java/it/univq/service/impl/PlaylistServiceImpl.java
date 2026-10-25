@@ -7,11 +7,11 @@ import it.univq.datamodel.Utente;
 import it.univq.exception.BranoNonTrovatoException;
 import it.univq.exception.DuplicatoException;
 import it.univq.exception.PlaylistNonTrovataException;
-
 import it.univq.service.CodaDiRiproduzioneService;
 import it.univq.service.CriterioOrdinamento;
 import it.univq.service.PlayerService;
 import it.univq.service.PlaylistService;
+import it.univq.service.AppLogger;
  
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.List;
 public class PlaylistServiceImpl implements PlaylistService{
     private CodaDiRiproduzioneService coda=new CodaDiRiproduzioneServiceImpl();
     private PlayerService player= new PlayerServiceImpl();
+    private final LoggerService logger = LoggerServiceImpl.getIstanza();
    
     @Override
     public void aggiungiBrano(Playlist p, Brano b) {
@@ -26,6 +27,7 @@ public class PlaylistServiceImpl implements PlaylistService{
             throw new DuplicatoException("Operazione fallita. Il brano" +b.getTitolo()+ " è gia presente in: " + p.getNome()+".");
         }
         p.getBrani().add(b);
+        logger.log("AGGIUNTA_BRANO_PLAYLIST", "Brano aggiunto alla playlist: " + p.getNome());
     }
  
     @Override
@@ -34,7 +36,7 @@ public class PlaylistServiceImpl implements PlaylistService{
             throw new BranoNonTrovatoException("Operazione fallita. Il brano" +b.getTitolo()+ "non è presente in " +p.getNome()+".");
         }
         p.getBrani().remove(b);
- 
+        logger.log("RIMOZIONE_BRANO_PLAYLIST", "Brano rimosso dalla playlist: " + p.getNome());
     }
  
     // metodo per ordinare i brani di una playlist secondo un criterio scelto
@@ -47,6 +49,7 @@ public class PlaylistServiceImpl implements PlaylistService{
     @Override
     public void creaPlaylist(Playlist p, Utente u) {
         u.getPlaylist().add(p);
+        logger.log("CREAZIONE_PLAYLIST", "Playlist creata: " + p.getNome());
     }
  
     @Override
@@ -55,6 +58,7 @@ public class PlaylistServiceImpl implements PlaylistService{
             throw new PlaylistNonTrovataException("Operazione fallita. La playlist" +p.getNome()+" non esiste.");
         }
         u.getPlaylist().remove(p);
+        logger.log("ELIMINAZIONE_PLAYLIST", "Playlist eliminata: " + p.getNome());
     }
  
     @Override

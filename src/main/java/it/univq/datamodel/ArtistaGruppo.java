@@ -1,9 +1,10 @@
 package it.univq.datamodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtistaGruppo extends Artista {
+public class ArtistaGruppo extends Artista implements Serializable {
     private List<Artista> componenti;
 
     public ArtistaGruppo(String nomeArte, String biografia, GenereMusicale genere){
