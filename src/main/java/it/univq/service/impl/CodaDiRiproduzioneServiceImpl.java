@@ -37,6 +37,12 @@ public class CodaDiRiproduzioneServiceImpl implements CodaDiRiproduzioneService 
         coda.clear();
         CodaDiRiproduzione.getIstanza().setIndiceBranoCorrente(-1);
     }
+    @Override
+    public void impostaUltimoIndice() {
+    List<Brano> coda=CodaDiRiproduzione.getIstanza().getCoda();
+    int ultimoIndice=coda.size()-1;
+    CodaDiRiproduzione.getIstanza().setIndiceBranoCorrente(ultimoIndice);
+}
  
  
    

@@ -10,6 +10,7 @@ public class CodaDiRiproduzione {
     private List<Brano> coda;
     private boolean shuffle;
     private boolean repeat;
+    private int indiceBranoCorrente; // tiene traccia del brano attuale in cui si trova
 
     public int getIndiceBranoCorrente() {
         return indiceBranoCorrente;
@@ -19,7 +20,7 @@ public class CodaDiRiproduzione {
         this.indiceBranoCorrente = indiceBranoCorrente;
     }
 
-    private int indiceBranoCorrente; // tiene traccia del brano attuale in cui si trova
+    
 
     public static CodaDiRiproduzione getIstanza() {
         return istanza;
