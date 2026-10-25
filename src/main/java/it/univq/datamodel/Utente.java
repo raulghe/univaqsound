@@ -90,4 +90,8 @@ public class Utente implements Serializable {
         this.isAmministratore=isAdministrator;
  
     }
+    @Override
+        public String toString() {
+    return nome + " " + cognome + (isAmministratore ? "  [Admin]" : "  [Utente]");
+}
 }
