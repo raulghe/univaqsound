@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univq.controller.HomeController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="89.0" prefWidth="1000.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="67.0" prefWidth="346.0" text="UnivaqSound" textFill="#ffc900">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelNomeUtente" alignment="CENTER_RIGHT" prefHeight="89.0" prefWidth="774.0" text="Benvenuto................." textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font></Label>
+            <Button mnemonicParsing="false" onAction="#handleEsci" prefHeight="39.0" prefWidth="142.0" style="-fx-background-color: black;" text="Esci" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Button>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="551.0" prefWidth="151.0" style="-fx-background-color: #EBB946;" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#apriLibreria" prefHeight="61.0" prefWidth="161.0" style="-fx-background-color: #EBB946;" text="📚 Libreria">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#apriPlaylist" prefHeight="51.0" prefWidth="161.0" style="-fx-background-color: #EBB946;" text="🎶 Playlist">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#apriRicerca" prefHeight="53.0" prefWidth="161.0" style="-fx-background-color: #EBB946;" text="🔍 Ricerca">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#apriStatistiche" prefHeight="64.0" prefWidth="161.0" style="-fx-background-color: #EBB946;" text="📊 Statistiche">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="85.0" spacing="20.0" style="-fx-background-color: #181818; -fx-padding: 10 20 10 20; -fx-border-color: #2A2A2A; -fx-border-width: 1 0 0 0;" BorderPane.alignment="CENTER">
+         <children>
+                  <HBox alignment="CENTER_LEFT" spacing="12.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" spacing="3.0">
+                           <children>
+                              <Label fx:id="labelTitoloBrano" text="Nessun brano in riproduzione" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="labelArtistaAlbum" text="-" textFill="#888888">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" spacing="6.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="572.0" spacing="15.0">
+                           <children>
+                              <Button fx:id="btnShuffle" mnemonicParsing="false" onAction="#cambiaShuffle" style="-fx-background-color: transparent; -fx-text-fill: #888888; -fx-cursor: hand;" text="🔀">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="btnIndietro" mnemonicParsing="false" onAction="#indietro" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;" text="⏮">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="btnPlay" focusTraversable="false" maxHeight="45.0" maxWidth="45.0" minHeight="45.0" minWidth="45.0" mnemonicParsing="false" onAction="#play" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #EBB946; -fx-text-fill: black; -fx-background-radius: 50; -fx-cursor: hand; -fx-font-weight: bold;" text="▶">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font></Button>
+                              <Button fx:id="btnPausa" mnemonicParsing="false" onAction="#pausa" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;" text="⏸">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="btnAvanti" mnemonicParsing="false" onAction="#handleAvanti" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;" text="⏭">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="btnRipeti" mnemonicParsing="false" onAction="#handleRepeat" style="-fx-background-color: transparent; -fx-text-fill: #888888; -fx-cursor: hand;" text="🔁">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Label fx:id="labelTempoCorrente" text="00:00" textFill="#888888">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                              <Slider fx:id="sliderProgresso" prefHeight="14.0" prefWidth="341.0" style="-fx-cursor: hand;" />
+                              <Label fx:id="labelTempoTotale" text="00:00" textFill="#888888">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="63.0" prefWidth="181.0" spacing="10.0">
+                     <children>
+                        <Label text="🔊" textFill="#888888">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Slider fx:id="sliderVolume" max="1.0" value="0.7" />
+                     </children>
+                  </HBox>
+               </children>
+      </HBox>
+   </bottom>
+   <center>
+      <StackPane fx:id="Centro" prefHeight="506.0" prefWidth="864.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
