@@ -8,11 +8,13 @@ import it.univq.exception.ArtistaNonTrovatoException;
 import it.univq.service.LoggerService;
 import it.univq.service.ArtistaService;
 
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ArtistaServiceImpl implements ArtistaService {
     private final Libreria libreria= Libreria.getIstanza();
+    private final LoggerService logger= LoggerServiceImpl.getIstanza();
     @Override
     public Set<Artista> getTuttiArtisti(){
         return libreria.getArtisti().getElementi();

@@ -51,6 +51,7 @@ public class PlayerServiceImpl implements PlayerService {
          File file= new File(branoCorrente.getPercorsoFile());
          Media media=new Media(file.toURI().toString());
          mediaPlayer = new MediaPlayer(media);
+        logger.log("AVVIO_RIPRODUZIONE", "Brano riprodotto: " + branoCorrente.getTitolo());
          mediaPlayer.play();
          mediaPlayer.setOnEndOfMedia(() -> this.avanti());
          ultimoIndice=coda.getIndiceBranoCorrente();
@@ -131,7 +132,7 @@ public class PlayerServiceImpl implements PlayerService {
     public void play(Utente u){
         this.utenteCorrente=u;
         this.play();
-        logger.log("AVVIO_RIPRODUZIONE", "Brano riprodotto: " + branoCorrente.getTitolo());
+       
     }
  
 }
