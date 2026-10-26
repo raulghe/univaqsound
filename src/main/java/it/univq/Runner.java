@@ -51,16 +51,16 @@ public class Runner extends Application {
         ArtistaGruppo queen = new ArtistaGruppo("Queen", "Celebre gruppo rock britannico", GenereMusicale.ROCK);
         Album nightAtOpera = new Album("A Night at the Opera", 1975, GenereMusicale.ROCK, "copertina_queen.jpg", queen);
         Brano b1 = new Brano("Bohemian Rhapsody", 355, GenereMusicale.ROCK, nightAtOpera);
-        b1.setPercorsoFile("assets/audio/bohemian.mp3");
+        b1.setPercorsoFile("/audio/kornevmusic-happy-latin-salsa-dance-621026.mp3");
         Brano b2 = new Brano("Love of My Life", 219, GenereMusicale.ROCK, nightAtOpera);
-        b2.setPercorsoFile("assets/audio/love_of_my_life.mp3");
+        b2.setPercorsoFile("/audio/loka_music-inspiring-travel-acoustic-621191.mp3");
         nightAtOpera.getBrani().add(b1);
         nightAtOpera.getBrani().add(b2);
         queen.getDiscografia().add(nightAtOpera);
 
         Album theGame = new Album("The Game", 1980, GenereMusicale.ROCK, "copertina_game.jpg", queen);
         Brano b3 = new Brano("Another One Bites the Dust", 215, GenereMusicale.ROCK, theGame);
-        b3.setPercorsoFile("assets/audio/dust.mp3");
+        b3.setPercorsoFile("/audio/miromaxmusic-stylish-funk-smooth-party-no-copyright-620664.mp3");
         theGame.getBrani().add(b3);
         queen.getDiscografia().add(theGame);
 
@@ -68,9 +68,9 @@ public class Runner extends Application {
         ArtistaGruppo pinkFloyd = new ArtistaGruppo("Pink Floyd", "Pionieri della musica psichedelica", GenereMusicale.ROCK);
         Album darkSide = new Album("The Dark Side of the Moon", 1973, GenereMusicale.ROCK, "copertina_floyd.jpg", pinkFloyd);
         Brano b4 = new Brano("Time", 413, GenereMusicale.ROCK, darkSide);
-        b4.setPercorsoFile("assets/audio/time.mp3");
+        b4.setPercorsoFile("/audio/luminewave-devil-time-621140.mp3");
         Brano b5 = new Brano("Money", 382, GenereMusicale.ROCK, darkSide);
-        b5.setPercorsoFile("assets/audio/money.mp3");
+        b5.setPercorsoFile("/audio/vaitsez-vlog-vlog-beat-620108.mp3");
         darkSide.getBrani().add(b4);
         darkSide.getBrani().add(b5);
         pinkFloyd.getDiscografia().add(darkSide);
