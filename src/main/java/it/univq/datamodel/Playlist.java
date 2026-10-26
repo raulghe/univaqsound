@@ -14,7 +14,7 @@ public class Playlist implements Riproducibile, Serializable {
     private List<Brano> braniPlaylist= new ArrayList<>();
 
 
-    public Playlist(String nome, String descrizione, LocalDateTime dataCreazione, Utente proprietario) {
+    public Playlist(String nome, String descrizione, Utente proprietario) {
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataCreazione = LocalDateTime.now();
@@ -59,6 +59,10 @@ public class Playlist implements Riproducibile, Serializable {
     @Override
     public List<Brano> getDaRiprodurre(){
         return List.copyOf(this.getBrani());
+    }
+    @Override 
+    public String toString() {
+        return nome;
     }
 
 

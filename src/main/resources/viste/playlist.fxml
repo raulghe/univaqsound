@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univq.controller.PlaylistController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="600.0" spacing="15.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="273.0" text="Playlist" textFill="#ebb946">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="labelStatoSelezione" prefHeight="20.0" prefWidth="236.0" textFill="#888888">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <SplitPane dividerPositions="0.33" prefHeight="343.0" prefWidth="709.0" VBox.vgrow="ALWAYS">
+         <items>
+            <TableView fx:id="tabellaPlaylist" fixedCellSize="35.0" prefHeight="341.0" prefWidth="270.0">
+               <columns>
+                  <TableColumn fx:id="colonnaPlaylist" prefWidth="150.0" text="Playlist" />
+                  <TableColumn fx:id="colonnaPlayPlaylist" maxWidth="45.0" minWidth="40.0" prefWidth="40.0" resizable="false" />
+                  <TableColumn fx:id="colonnaEliminaPlaylist" maxWidth="45.0" minWidth="40.0" prefWidth="40.0" resizable="false" text="🗑" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <TableView fx:id="tabellaBraniPlaylist" fixedCellSize="35.0" prefHeight="341.0" prefWidth="441.0">
+               <columns>
+                  <TableColumn fx:id="colonnaBraniPlaylist" prefWidth="300.0" text="Brano" />
+                  <TableColumn fx:id="colonnaPlayBrano" maxWidth="45.0" minWidth="40.0" prefWidth="40.0" resizable="false" />
+                  <TableColumn fx:id="colonnaRimuoviBrano" maxWidth="45.0" minWidth="40.0" prefWidth="40.0" resizable="false" text="🗑" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </items>
+      </SplitPane>
+      <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="709.0" spacing="10.0" style="-fx-padding: 10;">
+         <children>
+            <TextField fx:id="nomeNuovaPlaylist" prefHeight="28.0" prefWidth="159.0" promptText="Nome nuova playlist..." />
+            <TextField fx:id="descrizioneNuovaPlaylist" layoutX="20.0" layoutY="24.0" prefHeight="28.0" prefWidth="159.0" promptText="descrizione playlist " />
+            <Button fx:id="btnCreaPlaylist" mnemonicParsing="false" onAction="#handleCreaPlaylist" style="-fx-background-color: #EBB946; -fx-text-fill: black; -fx-font-weight: bold;" text="Crea Playlist" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnSpostaSu" mnemonicParsing="false" onAction="#handleSpostaSu" style="-fx-background-color: #333333; -fx-text-fill: #EBB946; -fx-font-weight: bold;" text="▲ Sposta Su" />
+            <Button fx:id="btnSpostaGiu" mnemonicParsing="false" onAction="#handleSpostaGiu" style="-fx-background-color: #333333; -fx-text-fill: #EBB946; -fx-font-weight: bold;" text="▼ Sposta Giù" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
