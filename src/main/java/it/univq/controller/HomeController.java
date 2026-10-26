@@ -88,8 +88,22 @@ public class HomeController implements Initializable {
 
     @FXML
     private void apriStatistiche(ActionEvent event) {
-        caricaVista("/viste/statistiche.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viste/statistiche.fxml"));
+            Node vista = loader.load();
+
+            StatisticheController controller = loader.getController();
+            if (controller != null && utenteLoggato != null) {
+                controller.setUtente(utenteLoggato);
+            }
+
+            Centro.getChildren().setAll(vista);
+        } catch (IOException e) {
+            System.out.println("Errore nel caricamento della vista statistiche: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
     private void play(ActionEvent event) {
