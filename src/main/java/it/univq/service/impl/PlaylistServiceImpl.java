@@ -14,7 +14,7 @@ import java.util.List;
  
 public class PlaylistServiceImpl implements PlaylistService{
     private CodaDiRiproduzioneService coda=new CodaDiRiproduzioneServiceImpl();
-    private PlayerService player= new PlayerServiceImpl();
+    private PlayerService player= PlayerServiceImpl.getIstanza();
     private final LoggerService logger = LoggerServiceImpl.getIstanza();
    
     @Override

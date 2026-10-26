@@ -1,11 +1,14 @@
 package it.univq.service.impl;
  
-import java.io.File;
+import java.net.URL;
+
+import javafx.util.Duration;
 import java.util.Random;
  
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.CodaDiRiproduzione;
 import it.univq.datamodel.Utente;
+import it.univq.exception.FileAudioNonTrovatoException;
 import it.univq.service.CronologiaService;
 import it.univq.service.PlayerService;
 import it.univq.service.LoggerService;
@@ -13,17 +16,25 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
  
 public class PlayerServiceImpl implements PlayerService {
+    private static final PlayerService istanza=new PlayerServiceImpl();
     private final CodaDiRiproduzione coda=CodaDiRiproduzione.getIstanza();
     private MediaPlayer mediaPlayer;
     private int ultimoIndice=-1;//lo uso per capire se play viene dallo stesso brano  o a seguito di avanti o indietro
+    private double volume = 0.5;
     private Utente utenteCorrente;
     private final CronologiaService cronologiaService=new CronologiaServiceImpl();
     private final LoggerService logger=LoggerServiceImpl.getIstanza();
-    
+
+    private PlayerServiceImpl(){}
+
+    public static PlayerService getIstanza(){
+        return istanza;
+    }
 
     @Override
     public void play(){
-        if(coda.getCoda().isEmpty())return;
+        if(coda.getCoda().isEmpty())
+            return;
         if(coda.getIndiceBranoCorrente()==-1){
             coda.setIndiceBranoCorrente(0);
         }
@@ -32,9 +43,15 @@ public class PlayerServiceImpl implements PlayerService {
             mediaPlayer.play();
             return;
         }
- 
         //ci arrivo da tasto avanto indietro ,da una riproduzione di un brano cercato , oppure se ho il repeat attivo e ho un solo brano
         if(ultimoIndice!=coda.getIndiceBranoCorrente() || mediaPlayer.getStatus()==MediaPlayer.Status.STOPPED && ultimoIndice==coda.getIndiceBranoCorrente()){
+            Brano branoCorrente = coda.getCoda().get(coda.getIndiceBranoCorrente());
+            String percorso = branoCorrente.getPercorsoFile();
+            URL risorsa = (percorso == null || percorso.isBlank()) ? null : getClass().getResource(percorso); 
+            if(risorsa == null){
+                throw new FileAudioNonTrovatoException("Impossibile riprodurre il brano:" +branoCorrente.getTitolo()+ ": file audio non trovato (");
+            }
+            Media media = new Media(risorsa.toExternalForm());
         //fermo il brano che c'è nel player e devo aggiornare la cronologia 
             if (mediaPlayer!=null){
             mediaPlayer.pause();
@@ -47,11 +64,9 @@ public class PlayerServiceImpl implements PlayerService {
             mediaPlayer.dispose();
          }        
          //carico il nuovo brano e lo riproduco
-         Brano branoCorrente =coda.getCoda().get(coda.getIndiceBranoCorrente());
-         File file= new File(branoCorrente.getPercorsoFile());
-         Media media=new Media(file.toURI().toString());
          mediaPlayer = new MediaPlayer(media);
-        logger.log("AVVIO_RIPRODUZIONE", "Brano riprodotto: " + branoCorrente.getTitolo());
+         mediaPlayer.setVolume(volume);
+         logger.log("AVVIO_RIPRODUZIONE", "Brano riprodotto: " + branoCorrente.getTitolo());
          mediaPlayer.play();
          mediaPlayer.setOnEndOfMedia(() -> this.avanti());
          ultimoIndice=coda.getIndiceBranoCorrente();
@@ -129,10 +144,55 @@ public class PlayerServiceImpl implements PlayerService {
         if(coda.isRepeat()) coda.setRepeat(false);
         else coda.setRepeat(true);
     }
+    @Override 
+    public double getTempoCorrenteSecondi(){
+        if(mediaPlayer == null) return 0;
+        return mediaPlayer.getCurrentTime().toSeconds(); 
+    }
+    @Override 
+    public double getDurataTotaleSecondi(){
+        if (mediaPlayer == null) {return 0;}
+        Duration durata = mediaPlayer.getTotalDuration();
+        if (durata.isUnknown()){
+            return 0;
+        }
+        return durata.toSeconds();
+    }
+    @Override 
+    public void setPosizione(double secondi){
+        if(mediaPlayer == null) return;
+        mediaPlayer.seek(Duration.seconds(secondi));
+    }
+    @Override 
+    public void setVolume(double volume){
+        this.volume = volume;
+        if(mediaPlayer != null){
+            mediaPlayer.setVolume(volume);
+        }
+    }
+    @Override 
+    public double getVolume(){
+        return volume;
+    }
+    @Override 
+    public String getStato(){
+        if(mediaPlayer == null){
+            return "Stop";
+        }
+        return mediaPlayer.getStatus().name();
+    }
+    @Override 
+    public Brano getBranoCorrente(){
+        int indice = coda.getIndiceBranoCorrente();
+        if(indice < 0 || indice >= coda.getCoda().size()){
+            return null;
+        }
+        return coda.getCoda().get(indice);
+    }
     public void play(Utente u){
         this.utenteCorrente=u;
         this.play();
-       
     }
+    
  
 }
