@@ -18,7 +18,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import it.univq.datamodel.Utente;
-
 public class HomeController implements Initializable {
     private Utente utenteLoggato;
 
@@ -66,6 +65,10 @@ public class HomeController implements Initializable {
             stage.setTitle("UnivaqSound ");
             stage.centerOnScreen();
             stage.show();
+            
+
+
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,35 +76,31 @@ public class HomeController implements Initializable {
 
     @FXML
     private void apriLibreria(ActionEvent event) {
-        caricaVista("/viste/libreriaa.fxml");
+        
+        LibreriaController libc=(LibreriaController)caricaVista("/viste/libreria.fxml");
+        libc.salvaUtente(utenteLoggato);
     }
 
     @FXML
     private void apriPlaylist(ActionEvent event) {
-        caricaVista("/viste/playlist.fxml");
+        PlaylistController pc = (PlaylistController) caricaVista("/viste/playlist.fxml");
+        if (pc != null && utenteLoggato != null) {
+            pc.salvaUtente(utenteLoggato);
+        }
     }
 
     @FXML
     private void apriRicerca(ActionEvent event) {
-        caricaVista("/viste/ricerca.fxml");
+         RicercaController rc = (RicercaController) caricaVista("/viste/ricerca.fxml");
+        if (rc != null && utenteLoggato != null) {
+            rc.salvaUtente(utenteLoggato);
+        }
     }
 
     @FXML
     private void apriStatistiche(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/viste/statistiche.fxml"));
-            Node vista = loader.load();
-
-            StatisticheController controller = loader.getController();
-            if (controller != null && utenteLoggato != null) {
-                controller.setUtente(utenteLoggato);
-            }
-
-            Centro.getChildren().setAll(vista);
-        } catch (IOException e) {
-            System.out.println("Errore nel caricamento della vista statistiche: " + e.getMessage());
-            e.printStackTrace();
-        }
+        StatisticheController sc=(StatisticheController)caricaVista("/viste/statistiche.fxml");
+        sc.setUtente(utenteLoggato);
     }
 
 
@@ -135,14 +134,16 @@ public class HomeController implements Initializable {
         System.out.println("Cambia repeat");
     }
     
-    private void caricaVista(String percorsoFxml) {
+    private Object caricaVista(String percorsoFxml) {
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(percorsoFxml));
         Node vista = loader.load();
         Centro.getChildren().setAll(vista);
+        return (Object)loader.getController();
+        
     } catch (Exception e) {
         System.out.println("Errore nel caricamento della vista: " + percorsoFxml);
-        
+        return null;
     }
 }
 }
