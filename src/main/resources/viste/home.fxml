@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -52,6 +53,11 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Button fx:id="btnGestione" layoutX="10.0" layoutY="176.0" mnemonicParsing="false" onAction="#apriGestione" prefHeight="64.0" prefWidth="161.0" style="-fx-background-color: #EBB946;" text="⚙Gestione">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
    </left>
@@ -60,6 +66,7 @@
          <children>
                   <HBox alignment="CENTER_LEFT" spacing="12.0">
                      <children>
+                        <ImageView fx:id="immagineCopertina" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
                               <Label fx:id="labelTitoloBrano" text="Nessun brano in riproduzione" textFill="WHITE">

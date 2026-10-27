@@ -15,9 +15,13 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.CodaDiRiproduzione;
@@ -30,8 +34,8 @@ public class HomeController implements Initializable {
     private Utente utenteLoggato;
     private PlayerService player=PlayerServiceImpl.getIstanza();
     private CodaDiRiproduzione coda= CodaDiRiproduzione.getIstanza();
-
     @FXML private Label labelNomeUtente;
+    @FXML private ImageView immagineCopertina;
     @FXML private Label labelTitoloBrano;
     @FXML private Label labelArtistaAlbum;
     @FXML private Button btnShuffle;
@@ -45,12 +49,19 @@ public class HomeController implements Initializable {
     @FXML private Label labelTempoTotale;
     @FXML private Slider sliderVolume;
     @FXML private StackPane Centro;
+    @FXML private Button btnGestione;
+
+    
+   
 
     public void salvaUtente(Utente utente) {
         this.utenteLoggato = utente;
        
         labelNomeUtente.setText(utente.getNome());
         player.setUtente(utenteLoggato);
+        boolean administrator = utente.isAdministrator();
+        btnGestione.setVisible(administrator);
+        btnGestione.setManaged(administrator);
         
     }
 
@@ -188,6 +199,21 @@ private void aggiornaBarraPlayer() {
             if (brano.getAlbumBrano() != null) {
                 String nomeArtista = (brano.getAlbumBrano().getArtistaAlbum() != null)? brano.getAlbumBrano().getArtistaAlbum().getNomeArte()  : "";
                 labelArtistaAlbum.setText(nomeArtista + " - " + brano.getAlbumBrano().getTitolo());
+
+                //caricamento copertina
+                String percorsoCop = brano.getAlbumBrano().getPercorsoCopertina();
+                if (percorsoCop != null && !percorsoCop.isBlank() && immagineCopertina != null) {
+                    URL risorsa = getClass().getResource(percorsoCop.trim());
+                    if (risorsa != null) {
+                        immagineCopertina.setImage(new Image(risorsa.toExternalForm()));
+                    } else {
+                        immagineCopertina.setImage(null);
+                    }
+                } else if (immagineCopertina != null) {
+                    immagineCopertina.setImage(null);
+                }
+            } else if (immagineCopertina != null) {
+                immagineCopertina.setImage(null);
             }
             double tempoAttuale = player.getTempoCorrenteSecondi();
             int minAttuali = (int) (tempoAttuale / 60);
@@ -207,6 +233,16 @@ private void aggiornaBarraPlayer() {
         } else {
             labelTitoloBrano.setText("Nessun brano in riproduzione");
             labelArtistaAlbum.setText("");
+            if (immagineCopertina != null) {
+                immagineCopertina.setImage(null);
+            }
         }
+    }
+    @FXML
+    private void apriGestione(ActionEvent event){
+        if(utenteLoggato == null || !utenteLoggato.isAdministrator()){
+            return;
+        }
+        caricaVista("/viste/gestione.fxml");
     }
 }
