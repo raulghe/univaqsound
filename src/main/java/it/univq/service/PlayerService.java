@@ -11,7 +11,7 @@ public interface PlayerService {
     public void indietro();
     public void cambiaShuffle();
     public void cambiaModalitaRipetizione();
-    public void play(Utente u );
+    public void setUtente(Utente u );
     public double getTempoCorrenteSecondi();
     public double getDurataTotaleSecondi();
     public void setPosizione(double secondi);

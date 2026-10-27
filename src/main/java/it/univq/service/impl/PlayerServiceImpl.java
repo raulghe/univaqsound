@@ -189,9 +189,9 @@ public class PlayerServiceImpl implements PlayerService {
         }
         return coda.getCoda().get(indice);
     }
-    public void play(Utente u){
+    public void setUtente(Utente u){
         this.utenteCorrente=u;
-        this.play();
+    
     }
     
  

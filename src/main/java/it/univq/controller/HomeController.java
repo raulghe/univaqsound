@@ -1,5 +1,7 @@
 package it.univq.controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,9 +19,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.univq.datamodel.Brano;
+import it.univq.datamodel.CodaDiRiproduzione;
 import it.univq.datamodel.Utente;
+import it.univq.service.PlayerService;
+import it.univq.service.impl.PlayerServiceImpl;
+import javafx.util.Duration;
+
 public class HomeController implements Initializable {
     private Utente utenteLoggato;
+    private PlayerService player=PlayerServiceImpl.getIstanza();
+    private CodaDiRiproduzione coda= CodaDiRiproduzione.getIstanza();
 
     @FXML private Label labelNomeUtente;
     @FXML private Label labelTitoloBrano;
@@ -40,6 +50,7 @@ public class HomeController implements Initializable {
         this.utenteLoggato = utente;
        
         labelNomeUtente.setText(utente.getNome());
+        player.setUtente(utenteLoggato);
         
     }
 
@@ -49,6 +60,11 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+         // Timer che controlla lo stato del player ogni mezzo secondo per aggiornare la barra sotto
+    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500), event -> aggiornaBarraPlayer()));
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    
+    timeline.play();
         
     }
 
@@ -57,6 +73,8 @@ public class HomeController implements Initializable {
     @FXML
     private void handleEsci(ActionEvent event) {
         try {
+           player.pausa();
+           
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/viste/login.fxml"));
             Parent root = loader.load();
 
@@ -106,32 +124,47 @@ public class HomeController implements Initializable {
 
     @FXML
     private void play(ActionEvent event) {
-        System.out.println("Play premuto");
+        
+        player.play();
+       
+       
     }
 
     @FXML
     private void pausa(ActionEvent event) {
-        System.out.println("Pausa premuta");
+        player.pausa();
     }
 
     @FXML
     private void indietro(ActionEvent event) {
-        System.out.println("Indietro premuto");
+        player.indietro();
     }
 
     @FXML
     private void handleAvanti(ActionEvent event) {
-        System.out.println("Avanti premuto");
+        player.avanti();
     }
 
-    @FXML
+   
+           @FXML
     private void cambiaShuffle(ActionEvent event) {
-        System.out.println("Cambia shuffle");
+        player.cambiaShuffle();
+        if (coda.isShuffle()) {
+            btnShuffle.setStyle("-fx-background-color: transparent; -fx-text-fill: #EBB946; -fx-cursor: hand;");
+        } else {
+            btnShuffle.setStyle("-fx-background-color: transparent; -fx-text-fill: #888888; -fx-cursor: hand;");
+        }
     }
+    
 
     @FXML
     private void handleRepeat(ActionEvent event) {
-        System.out.println("Cambia repeat");
+       player.cambiaModalitaRipetizione();
+          if (coda.isRepeat()) {
+            btnRipeti.setStyle("-fx-background-color: transparent; -fx-text-fill: #EBB946; -fx-cursor: hand;");
+        } else {
+            btnRipeti.setStyle("-fx-background-color: transparent; -fx-text-fill: #888888; -fx-cursor: hand;");
+        }
     }
     
     private Object caricaVista(String percorsoFxml) {
@@ -146,4 +179,34 @@ public class HomeController implements Initializable {
         return null;
     }
 }
+private void aggiornaBarraPlayer() {
+        Brano brano = player.getBranoCorrente();
+        if (brano != null) {
+            
+            labelTitoloBrano.setText(brano.getTitolo());
+            
+            if (brano.getAlbumBrano() != null) {
+                String nomeArtista = (brano.getAlbumBrano().getArtistaAlbum() != null)? brano.getAlbumBrano().getArtistaAlbum().getNomeArte()  : "";
+                labelArtistaAlbum.setText(nomeArtista + " - " + brano.getAlbumBrano().getTitolo());
+            }
+            double tempoAttuale = player.getTempoCorrenteSecondi();
+            int minAttuali = (int) (tempoAttuale / 60);
+            int secAttuali = (int) (tempoAttuale % 60);
+            //aggiorna il tempo corrente
+            labelTempoCorrente.setText(String.format("%d:%02d", minAttuali, secAttuali));
+            double durataTotale = player.getDurataTotaleSecondi();
+            if (durataTotale > 0) {
+                int minTotali = (int) (durataTotale / 60);
+                int secTotali = (int) (durataTotale % 60);
+                labelTempoTotale.setText(String.format("%d:%02d", minTotali, secTotali));
+                sliderProgresso.setMax(durataTotale);
+                if (!sliderProgresso.isValueChanging()) {
+                    sliderProgresso.setValue(tempoAttuale);
+                }
+            }
+        } else {
+            labelTitoloBrano.setText("Nessun brano in riproduzione");
+            labelArtistaAlbum.setText("");
+        }
+    }
 }
