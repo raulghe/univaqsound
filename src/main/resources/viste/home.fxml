@@ -123,15 +123,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="63.0" prefWidth="181.0" spacing="10.0">
-                     <children>
-                        <Label text="🔊" textFill="#888888">
-                           <font>
-                              <Font size="18.0" />
-                           </font></Label>
-                        <Slider fx:id="sliderVolume" max="1.0" value="0.7" />
-                     </children>
-                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="63.0" prefWidth="181.0" spacing="10.0" />
                </children>
       </HBox>
    </bottom>
