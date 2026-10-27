@@ -30,8 +30,7 @@ public class Album implements Riproducibile, Ricercabile, Serializable {
      * @param percorsoCopertina  il percorso o nome del file dell'immagine di copertina non ancora usato 
      * @param artistaAlbum       l'artista che puo essere solita o gruppo autore dell'album
      */
-    public Album(String titolo, int annoPubblicazione, GenereMusicale genereAlbum, String percorsoCopertina,
-                 Artista artistaAlbum) {
+    public Album(String titolo, int annoPubblicazione, GenereMusicale genereAlbum, String percorsoCopertina,Artista artistaAlbum) {
         this.titolo = titolo;
         this.annoPubblicazione = annoPubblicazione;
         this.genereAlbum = genereAlbum;
@@ -127,7 +126,6 @@ public class Album implements Riproducibile, Ricercabile, Serializable {
     public void setPercorsoCopertina(String percorsoCopertina) {
         this.percorsoCopertina = percorsoCopertina;
     }
-
     /**
      * Restituisce l'artista dell album.
      *

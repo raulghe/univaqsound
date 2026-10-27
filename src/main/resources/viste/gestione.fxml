@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univq.controller.GestioneController">
+   <children>
+      <Pane prefHeight="411.0" prefWidth="600.0">
+         <children>
+            <Text layoutX="14.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserimento Brano" wrappingWidth="111.55010986328125">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="campoBranoAlbum" layoutX="126.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" promptText="Album Brano" />
+            <TextField fx:id="campoBranoTitolo" layoutX="221.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" promptText="Titolo Brano" />
+            <TextField fx:id="campoBranoPercorso" layoutX="408.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" promptText="Percorso file" />
+            <TextField fx:id="campoBranoGenere" layoutX="314.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" promptText="Genere Brano" />
+            
+            <Text layoutX="14.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserimento Album" wrappingWidth="111.55010986328125">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="campoAlbumArtista" layoutX="126.0" layoutY="93.0" prefHeight="25.0" prefWidth="87.0" promptText="Artista Album" />
+            <TextField fx:id="campoAlbumTitolo" layoutX="221.0" layoutY="93.0" prefHeight="25.0" prefWidth="87.0" promptText="Titolo Album" />
+            <TextField fx:id="campoAlbumAnno" layoutX="314.0" layoutY="94.0" prefHeight="25.0" prefWidth="87.0" promptText="Anno Album" />
+            <TextField fx:id="campoAlbumGenere" layoutX="408.0" layoutY="94.0" prefHeight="25.0" prefWidth="87.0" promptText="Genere Album" />
+            
+            <Text layoutX="14.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserimento Artista" wrappingWidth="111.55010986328125">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="campoArtistaNome" layoutX="126.0" layoutY="155.0" prefHeight="25.0" prefWidth="87.0" promptText="Artista" />
+            <TextField fx:id="campoArtistaBiografia" layoutX="221.0" layoutY="155.0" prefHeight="25.0" prefWidth="87.0" promptText="Biografia" />
+            <TextField fx:id="campoArtistaGenere" layoutX="314.0" layoutY="155.0" prefHeight="25.0" prefWidth="87.0" promptText="Genere Artista" />
+            
+            <Button layoutX="499.0" layoutY="60.0" mnemonicParsing="false" onAction="#aggiungiBrano" prefHeight="25.0" prefWidth="87.0" text="Aggiungi Brano">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Button layoutX="499.0" layoutY="114.0" mnemonicParsing="false" onAction="#aggiungiAlbum" prefHeight="25.0" prefWidth="87.0" text="Aggiungi Album">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Button layoutX="499.0" layoutY="175.0" mnemonicParsing="false" onAction="#aggiungiArtista" prefHeight="25.0" prefWidth="87.0" text="Aggiungi Artista">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <TextField fx:id="percorsoCopertina" layoutX="126.0" layoutY="119.0" prefHeight="25.0" prefWidth="87.0" promptText="Copertina" />
+            <TextField fx:id="tipoArtista" layoutX="408.0" layoutY="155.0" prefHeight="25.0" prefWidth="87.0" promptText="Solista/Gruppo" />
+         </children>
+      </Pane>
+   </children>
+</VBox>

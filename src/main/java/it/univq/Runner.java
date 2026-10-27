@@ -85,9 +85,9 @@ public class Runner extends Application {
 
 
         //Album
-        Album nightSignals = new Album("Night signals", 2024, GenereMusicale.ELETTRONICA, "copertina_luminewave.jpg", luminewave);
-        Album nightAtOpera = new Album("A Night at the Opera", 1975, GenereMusicale.ROCK, "copertina_queen.jpg", queen);
-        Album darkSide = new Album("The Dark Side of the Moon", 1973, GenereMusicale.ROCK, "copertina_floyd.jpg", pinkFloyd);
+        Album nightSignals = new Album("Night signals", 2024, GenereMusicale.ELETTRONICA, "/audio/luminewave.jpg", luminewave);
+       Album nightAtOpera = new Album("A Night at the Opera", 1975, GenereMusicale.ROCK, "/audio/queen.jpg", queen);
+       Album darkSide = new Album("The Dark Side of the Moon", 1973, GenereMusicale.ROCK, "/audio/pink-floyd.png", pinkFloyd);
 
 
         //Brani.nightSignals.luminewave
@@ -116,7 +116,7 @@ public class Runner extends Application {
         
 
 
-        //---Collegamenti--
+        
 
         //Album con i propri brani
         nightSignals.getBrani().add(b1);
