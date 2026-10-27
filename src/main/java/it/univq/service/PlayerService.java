@@ -14,10 +14,7 @@ public interface PlayerService {
     public void setUtente(Utente u );
     public double getTempoCorrenteSecondi();
     public double getDurataTotaleSecondi();
-    public void setPosizione(double secondi);
     public void setVolume(double volume);
-    public double getVolume();
-    public String getStato();
     public Brano getBranoCorrente();
  
 }
