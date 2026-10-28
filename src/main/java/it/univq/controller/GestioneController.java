@@ -1,6 +1,4 @@
 package it.univq.controller;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,10 +18,12 @@ import it.univq.service.impl.ArtistaServiceImpl;
 import it.univq.service.impl.BranoServiceImpl;
 import it.univq.service.impl.PersistenzaServiceImpl;
 
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -47,6 +47,11 @@ public class GestioneController implements Initializable {
     @FXML private TextField campoArtistaBiografia;
     @FXML private TextField campoArtistaGenere;
     @FXML private TextField tipoArtista;
+
+    // Campi Eliminazione
+    @FXML private TextField branoDaEliminare;
+    @FXML private TextField albumDaEliminare;
+    @FXML private TextField artistaDaEliminare;
 
     // Servizi
     private final BranoService branoService = new BranoServiceImpl();
@@ -231,5 +236,111 @@ public class GestioneController implements Initializable {
         alert.setTitle("SUCCESSO");
         alert.setContentText("Artista \"" + nomeArtista + "\" aggiunto con successo!");
         alert.showAndWait();
+    }
+
+    @FXML
+    private void eliminaBrano(ActionEvent event) {
+        String titolo = branoDaEliminare.getText() ;
+
+        Brano brano = branoService.getTuttiBrani().stream().filter(b -> b.getTitolo().equalsIgnoreCase(titolo)).findFirst().orElse(null);
+        //se nnon lo trovo    
+        if (brano == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRORE");
+            alert.setContentText("Brano non trovato nella libreria!");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+        conferma.setTitle("Conferma eliminazione");
+        conferma.setHeaderText(null);
+        conferma.setContentText("Confermi l'eliminazione del brano " + brano.getTitolo() + "?");
+        Optional<ButtonType> res = conferma.showAndWait();
+        if (res.isPresent() && res.get() == ButtonType.OK) {
+            branoService.rimuoviBrano(brano);
+            if (brano.getAlbumBrano() != null) {
+                brano.getAlbumBrano().getBrani().remove(brano);
+            }
+            try {
+                persis.salvaStato("stato_app.bin");
+            } catch (IOException e) {
+               System.out.println("errore nell' aggiornamento della libreria");
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("SUCCESSO");
+            alert.setContentText("Brano eliminato con successo!");
+            alert.showAndWait();
+            branoDaEliminare.clear();
+        }
+    }
+
+    @FXML
+    private void eliminaAlbum(ActionEvent event) {
+        String titolo = albumDaEliminare.getText();
+        Album album = albumService.getTuttiAlbum().stream().filter(a -> a.getTitolo().equalsIgnoreCase(titolo)).findFirst().orElse(null);
+       if (album == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRORE");
+            alert.setContentText("Album non trovato nella libreria!");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+        conferma.setTitle("Conferma eliminazione");
+        conferma.setHeaderText(null);
+        conferma.setContentText("Confermi l'eliminazione dell'album " + album.getTitolo() + "?");
+        Optional<ButtonType> res = conferma.showAndWait();
+        if (res.isPresent() && res.get() == ButtonType.OK) {
+            albumService.rimuoviAlbum(album);
+            if (album.getArtistaAlbum() != null) {
+                album.getArtistaAlbum().getDiscografia().remove(album); 
+            }
+            try {
+                persis.salvaStato("stato_app.bin");
+            } catch (IOException e) {
+                System.out.println("errore nell' aggiornamento della libreria");
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("SUCCESSO");
+            alert.setContentText("Album eliminato con successo!");
+            alert.showAndWait();
+            albumDaEliminare.clear();
+        }
+    }
+
+    @FXML
+    private void eliminaArtista(ActionEvent event) {
+        String nome = artistaDaEliminare.getText() ;
+
+        Artista artista = artistaService.getTuttiArtisti().stream().filter(a -> a.getNomeArte().equalsIgnoreCase(nome)).findFirst().orElse(null);
+
+        if (artista == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRORE");
+            alert.setContentText("Artista non trovato nella libreria!");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+        conferma.setTitle("Conferma eliminazione");
+        conferma.setHeaderText(null);
+        conferma.setContentText("Confermi l'eliminazione dell'artista " + artista.getNomeArte() + " ?");
+        Optional<ButtonType> res = conferma.showAndWait();
+        if (res.isPresent() && res.get() == ButtonType.OK) {
+            artistaService.rimuoviArtista(artista);
+            try {
+                persis.salvaStato("stato_app.bin");
+            } catch (IOException e) {
+                System.out.println("errore nell' aggiornamento della libreria");
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("SUCCESSO");
+            alert.setContentText("Artista eliminato con successo!");
+            alert.showAndWait();
+            artistaDaEliminare.clear();
+        }
     }
 }
