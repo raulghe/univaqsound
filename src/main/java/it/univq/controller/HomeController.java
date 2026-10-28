@@ -26,14 +26,16 @@ import javafx.scene.image.ImageView;
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.CodaDiRiproduzione;
 import it.univq.datamodel.Utente;
+import it.univq.service.CodaDiRiproduzioneService;
 import it.univq.service.PlayerService;
+import it.univq.service.impl.CodaDiRiproduzioneServiceImpl;
 import it.univq.service.impl.PlayerServiceImpl;
 import javafx.util.Duration;
 
 public class HomeController implements Initializable {
     private Utente utenteLoggato;
     private PlayerService player=PlayerServiceImpl.getIstanza();
-    private CodaDiRiproduzione coda= CodaDiRiproduzione.getIstanza();
+    
     @FXML private Label labelNomeUtente;
     @FXML private ImageView immagineCopertina;
     @FXML private Label labelTitoloBrano;
@@ -50,6 +52,7 @@ public class HomeController implements Initializable {
     @FXML private Slider sliderVolume;
     @FXML private StackPane Centro;
     @FXML private Button btnGestione;
+    private final CodaDiRiproduzioneService codas = new CodaDiRiproduzioneServiceImpl();
 
     
    
@@ -85,6 +88,8 @@ public class HomeController implements Initializable {
     private void handleEsci(ActionEvent event) {
         try {
            player.pausa();
+           
+           codas.svuotaCoda();
            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/viste/login.fxml"));
             Parent root = loader.load();
@@ -160,7 +165,7 @@ public class HomeController implements Initializable {
            @FXML
     private void cambiaShuffle(ActionEvent event) {
         player.cambiaShuffle();
-        if (coda.isShuffle()) {
+        if (codas.isShuffle()) {
             btnShuffle.setStyle("-fx-background-color: transparent; -fx-text-fill: #EBB946; -fx-cursor: hand;");
         } else {
             btnShuffle.setStyle("-fx-background-color: transparent; -fx-text-fill: #888888; -fx-cursor: hand;");
@@ -171,7 +176,7 @@ public class HomeController implements Initializable {
     @FXML
     private void handleRepeat(ActionEvent event) {
        player.cambiaModalitaRipetizione();
-          if (coda.isRepeat()) {
+          if (codas.isRepeat()) {
             btnRipeti.setStyle("-fx-background-color: transparent; -fx-text-fill: #EBB946; -fx-cursor: hand;");
         } else {
             btnRipeti.setStyle("-fx-background-color: transparent; -fx-text-fill: #888888; -fx-cursor: hand;");

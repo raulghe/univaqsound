@@ -43,7 +43,16 @@ public class CodaDiRiproduzioneServiceImpl implements CodaDiRiproduzioneService 
     int ultimoIndice=coda.size()-1;
     CodaDiRiproduzione.getIstanza().setIndiceBranoCorrente(ultimoIndice);
 }
- 
+
+    @Override
+    public boolean isShuffle() {
+    return CodaDiRiproduzione.getIstanza().isShuffle();
+}
+
+    @Override
+public boolean isRepeat() {
+    return CodaDiRiproduzione.getIstanza().isRepeat();
+}   
  
    
    

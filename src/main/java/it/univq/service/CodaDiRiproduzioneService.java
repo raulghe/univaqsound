@@ -21,4 +21,17 @@ public interface CodaDiRiproduzioneService {
      * imposta l'indice sull ultimo elemento della coda di riproduzione
      */
     public void impostaUltimoIndice();
+    
+    
+    /**controlla se la coda di riproduzione è in modalità shuffle
+     * @return true se la coda di riproduzione è in modalità shuffle, false altrimenti
+     */
+    public boolean isShuffle();
+    
+    
+    /**
+     * controlla se la coda di riproduzione è in modalità ripetizione
+     * @return true se la coda di riproduzione è in modalità ripetizione, false altrimenti
+     */
+    public boolean isRepeat();
 }
