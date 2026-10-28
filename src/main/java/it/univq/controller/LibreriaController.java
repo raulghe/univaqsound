@@ -92,7 +92,7 @@ public class LibreriaController implements Initializable {
         colonnaPlayAlbum.setCellFactory(col -> new TableCell<Album, Album>() {
             private final Label btnPlay = new Label("▶");
             {
-                btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 14px; -fx-font-weight: bold;");
+                btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
                 btnPlay.setOnMouseClicked(e -> {
                     Album album = getItem();
                     if (album != null && !album.getBrani().isEmpty()) {
@@ -117,7 +117,7 @@ public class LibreriaController implements Initializable {
         colonnaPlayBrano.setCellFactory(col -> new TableCell<Brano, Brano>() {
             private final Label btnPlay = new Label("▶");
             {
-                btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 14px; -fx-font-weight: bold;");
+                btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
                 btnPlay.setOnMouseClicked(e -> {
                     Brano brano = getItem();
                     if (brano != null) {

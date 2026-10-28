@@ -1,6 +1,7 @@
 package it.univq.controller;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import it.univq.datamodel.Brano;
@@ -19,7 +20,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -31,6 +34,7 @@ public class PlaylistController implements Initializable {
     @FXML private Label labelStatoSelezione;
     @FXML private TableView<Playlist> tabellaPlaylist;
     @FXML private TableColumn<Playlist, String> colonnaPlaylist;
+    @FXML private TableColumn<Playlist, String> colonnaDurata;
     @FXML private TableColumn<Playlist, Playlist> colonnaPlayPlaylist;
     @FXML private TableColumn<Playlist, Playlist> colonnaEliminaPlaylist;
 
@@ -61,7 +65,11 @@ public class PlaylistController implements Initializable {
         colonnaPlaylist.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNome()));
         colonnaPlayPlaylist.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
         colonnaEliminaPlaylist.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
-
+        colonnaDurata.setCellValueFactory(cellData -> { int secondiTotali = playlistService.calcolaDurataPlaylist(cellData.getValue()); 
+                                                        int min = secondiTotali / 60;
+                                                        int sec = secondiTotali % 60; 
+                                                        return new SimpleStringProperty(String.format("%d:%02d", min, sec));
+                                                       });
         colonnaBraniPlaylist.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitolo()));
         colonnaPlayBrano.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
         colonnaRimuoviBrano.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
@@ -79,7 +87,7 @@ public class PlaylistController implements Initializable {
         colonnaPlayPlaylist.setCellFactory(col -> new TableCell<Playlist, Playlist>() {
             private final Label btnPlay = new Label("▶");
             {
-                btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 14px; -fx-font-weight: bold;");
+                btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
                 btnPlay.setOnMouseClicked(e -> {
                     Playlist p = getItem();
                     if (p != null && !p.getBrani().isEmpty()) {
@@ -104,16 +112,21 @@ public class PlaylistController implements Initializable {
             private final Label btnDel = new Label("🗑");
             {
                 btnDel.setStyle("-fx-text-fill: #E74C3C; -fx-cursor: hand; -fx-font-size: 13px;");
-                btnDel.setOnMouseClicked(e -> {
-                    Playlist p = getItem();
-                    if (p != null && utenteLoggato != null) {
-                       
-                            playlistService.eliminaPlaylist(p, utenteLoggato);
-                            aggiornaListaPlaylist();
-                            tabellaBraniPlaylist.getItems().clear();
-                       
-                    }
-                });
+               btnDel.setOnMouseClicked(e -> {
+    Playlist p = getItem();
+    if (p != null && utenteLoggato != null) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma eliminazione");
+        alert.setHeaderText(null);
+        alert.setContentText("confermi l'eliminazione della playlist \"" + p.getNome() + "\"?");
+        Optional<ButtonType> risultato = alert.showAndWait();
+        if (risultato.isPresent() && risultato.get() == ButtonType.OK) {
+            playlistService.eliminaPlaylist(p, utenteLoggato);
+            aggiornaListaPlaylist();
+            tabellaBraniPlaylist.getItems().clear();
+        }
+    }
+});
             }
             @Override
             protected void updateItem(Playlist p, boolean empty) {
@@ -131,7 +144,7 @@ public class PlaylistController implements Initializable {
         colonnaPlayBrano.setCellFactory(col -> new TableCell<Brano, Brano>() {
             private final Label btnPlay = new Label("▶");
             {
-                btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 14px; -fx-font-weight: bold;");
+                btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
                 btnPlay.setOnMouseClicked(e -> {
                     Brano brano = getItem();
                     if (brano != null) {
@@ -162,9 +175,15 @@ public class PlaylistController implements Initializable {
                     Brano brano = getItem();
                     Playlist p = tabellaPlaylist.getSelectionModel().getSelectedItem();
                     if (brano != null && p != null) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Conferma eliminazione");
+                        alert.setHeaderText(null);
+                        alert.setContentText("confermi l'eliminazione del brano \"" + brano.getTitolo() + "\"?");
+                        Optional<ButtonType> risultato = alert.showAndWait();
+                        if (risultato.isPresent() && risultato.get() == ButtonType.OK){
                      playlistService.rimuoviBrano(p, brano);
                   tabellaBraniPlaylist.setItems(FXCollections.observableArrayList(p.getBrani()));
-                       
+                        }  
                     }
                 });
             }

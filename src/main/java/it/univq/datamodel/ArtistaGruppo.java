@@ -1,13 +1,13 @@
 package it.univq.datamodel;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * questa classe estende da Arista e serve a rappresentare un gruppo formato da piu artisti singoli
  */
-public class ArtistaGruppo extends Artista implements Serializable {
+public class ArtistaGruppo extends Artista {
     private List<Artista> componenti;
 
     /**

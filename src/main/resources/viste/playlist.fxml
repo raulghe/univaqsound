@@ -28,12 +28,13 @@
             </Label>
          </children>
       </HBox>
-      <SplitPane dividerPositions="0.33" prefHeight="343.0" prefWidth="709.0" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.5933962264150944" prefHeight="343.0" prefWidth="709.0" VBox.vgrow="ALWAYS">
          <items>
             <TableView fx:id="tabellaPlaylist" fixedCellSize="35.0" prefHeight="341.0" prefWidth="270.0">
                <columns>
-                  <TableColumn fx:id="colonnaPlaylist" prefWidth="150.0" text="Playlist" />
-                  <TableColumn fx:id="colonnaPlayPlaylist" maxWidth="45.0" minWidth="40.0" prefWidth="40.0" resizable="false" />
+                  <TableColumn fx:id="colonnaPlaylist" prefWidth="277.3333129485448" text="Playlist" />
+                  <TableColumn fx:id="colonnaDurata" prefWidth="64.6666259765625" text="Durata" />
+                  <TableColumn fx:id="colonnaPlayPlaylist" maxWidth="113.33331298828125" minWidth="20.0" prefWidth="34.66668701171875" resizable="false" />
                   <TableColumn fx:id="colonnaEliminaPlaylist" maxWidth="45.0" minWidth="40.0" prefWidth="40.0" resizable="false" text="🗑" />
                </columns>
                <columnResizePolicy>

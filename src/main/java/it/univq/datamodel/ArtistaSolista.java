@@ -1,11 +1,11 @@
 package it.univq.datamodel;
 
-import java.io.Serializable;
+
 
 /**
  * questa classe estende Artista e serve a rappresentare un artista singolo
  */
-public class ArtistaSolista extends Artista implements Serializable {
+public class ArtistaSolista extends Artista  {
 
     /**
      * costruttore di ArtistaSolista
