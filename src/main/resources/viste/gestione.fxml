@@ -18,7 +18,7 @@
             </Text>
             <TextField fx:id="campoBranoAlbum" layoutX="126.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" promptText="Album Brano" />
             <TextField fx:id="campoBranoTitolo" layoutX="221.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" promptText="Titolo Brano" />
-            <TextField fx:id="campoBranoPercorso" layoutX="408.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" promptText="Percorso file" />
+            <TextField fx:id="campoBranoPercorso" layoutX="408.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" promptText="file brano" />
             <TextField fx:id="campoBranoGenere" layoutX="314.0" layoutY="35.0" prefHeight="25.0" prefWidth="87.0" promptText="Genere Brano" />
             
             <Text layoutX="14.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserimento Album" wrappingWidth="111.55010986328125">
@@ -31,14 +31,14 @@
             <TextField fx:id="campoAlbumAnno" layoutX="314.0" layoutY="94.0" prefHeight="25.0" prefWidth="87.0" promptText="Anno Album" />
             <TextField fx:id="campoAlbumGenere" layoutX="408.0" layoutY="94.0" prefHeight="25.0" prefWidth="87.0" promptText="Genere Album" />
             
-            <Text layoutX="14.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserimento Artista" wrappingWidth="111.55010986328125">
+            <Text layoutX="22.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserimento Artista" wrappingWidth="111.55010986328125">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <TextField fx:id="campoArtistaNome" layoutX="126.0" layoutY="155.0" prefHeight="25.0" prefWidth="87.0" promptText="Artista" />
-            <TextField fx:id="campoArtistaBiografia" layoutX="221.0" layoutY="155.0" prefHeight="25.0" prefWidth="87.0" promptText="Biografia" />
-            <TextField fx:id="campoArtistaGenere" layoutX="314.0" layoutY="155.0" prefHeight="25.0" prefWidth="87.0" promptText="Genere Artista" />
+            <TextField fx:id="campoArtistaNome" layoutX="134.0" layoutY="178.0" prefHeight="25.0" prefWidth="87.0" promptText="Artista" />
+            <TextField fx:id="campoArtistaBiografia" layoutX="229.0" layoutY="178.0" prefHeight="25.0" prefWidth="87.0" promptText="Biografia" />
+            <TextField fx:id="campoArtistaGenere" layoutX="322.0" layoutY="178.0" prefHeight="25.0" prefWidth="87.0" promptText="Genere Artista" />
             
             <Button layoutX="499.0" layoutY="60.0" mnemonicParsing="false" onAction="#aggiungiBrano" prefHeight="25.0" prefWidth="87.0" text="Aggiungi Brano">
                <font>
@@ -50,13 +50,61 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button layoutX="499.0" layoutY="175.0" mnemonicParsing="false" onAction="#aggiungiArtista" prefHeight="25.0" prefWidth="87.0" text="Aggiungi Artista">
+            <Button layoutX="507.0" layoutY="198.0" mnemonicParsing="false" onAction="#aggiungiArtista" prefHeight="25.0" prefWidth="87.0" text="Aggiungi Artista">
                <font>
                   <Font size="10.0" />
                </font>
             </Button>
-            <TextField fx:id="percorsoCopertina" layoutX="126.0" layoutY="119.0" prefHeight="25.0" prefWidth="87.0" promptText="Copertina" />
-            <TextField fx:id="tipoArtista" layoutX="408.0" layoutY="155.0" prefHeight="25.0" prefWidth="87.0" promptText="Solista/Gruppo" />
+            <TextField fx:id="percorsoCopertina" layoutX="126.0" layoutY="134.0" prefHeight="25.0" prefWidth="87.0" promptText="file Copertina" />
+            <TextField fx:id="tipoArtista" layoutX="416.0" layoutY="178.0" prefHeight="25.0" prefWidth="87.0" promptText="Solista/Gruppo" />
+            <Text layoutX="22.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elimina Brano:" wrappingWidth="111.55010986328125">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="branoDaEliminare" layoutX="134.0" layoutY="268.0" prefHeight="25.0" prefWidth="87.0" promptText="Titolo" />
+            <Button layoutX="235.0" layoutY="268.0" mnemonicParsing="false" onAction="#eliminaBrano" prefHeight="25.0" prefWidth="87.0" text="ELIMINA">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="22.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elimina Album:" wrappingWidth="111.55010986328125">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="albumDaEliminare" layoutX="134.0" layoutY="309.0" prefHeight="25.0" prefWidth="87.0" promptText="Nome Album" />
+            <Button layoutX="235.0" layoutY="309.0" mnemonicParsing="false" onAction="#eliminaAlbum" prefHeight="25.0" prefWidth="87.0" text="ELIMINA">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text layoutX="22.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elimina Artista:" wrappingWidth="111.55010986328125">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <TextField fx:id="artistaDaEliminare" layoutX="134.0" layoutY="348.0" prefHeight="25.0" prefWidth="87.0" promptText="Nome Artista" />
+            <Button layoutX="235.0" layoutY="348.0" mnemonicParsing="false" onAction="#eliminaArtista" prefHeight="25.0" prefWidth="87.0" text="ELIMINA">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Text fill="RED" layoutX="22.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIGITARE IL NOME DELL'ELEMENTO DA RIMUOVERE " wrappingWidth="345.2141876220703">
+               <font>
+                  <Font name="System Bold Italic" size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="413.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="( ex BRANO.MP3)">
+               <font>
+                  <Font name="System Bold Italic" size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="145.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="( ex IMG.JPG)">
+               <font>
+                  <Font name="System Bold Italic" size="10.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>
