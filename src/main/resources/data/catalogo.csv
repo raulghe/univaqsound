@@ -1,0 +1,10 @@
+tipoArtista;nomeArte;biografia;genereArtista;titoloAlbum;anno;genereAlbum;copertina;titoloBrano;durata;genereBrano;percorsoFile
+SOLISTA;Luminewave;Produced musica elettronica;ELETTRONICA;Night signals;2024;ELETTRONICA;/audio/luminewave.jpg;Trailer intro;26;ELETTRONICA;/audio/luminewave-audioknap-trailer-intro-620276.mp3
+SOLISTA;Luminewave;Produced musica elettronica;ELETTRONICA;Night signals;2024;ELETTRONICA;/audio/luminewave.jpg;Devil time;73;ELETTRONICA;/audio/luminewave-devil-time-621140.mp3
+SOLISTA;Luminewave;Produced musica elettronica;ELETTRONICA;Night signals;2024;ELETTRONICA;/audio/luminewave.jpg;Spooky Halloween;102;ELETTRONICA;/audio/luminewave-sound4stock-halloween-spooky-music-620458.mp3
+GRUPPO;Queen;Celebre gruppo rock britannico;ROCK;A Night at the Opera;1975;ROCK;/audio/queen.jpg;Bohemian rhapsody;356;ROCK;/audio/queen-bohemian-rhapsody.mp3
+GRUPPO;Queen;Celebre gruppo rock britannico;ROCK;A Night at the Opera;1975;ROCK;/audio/queen.jpg;Love of my life;223;ROCK;/audio/queen-love-of-my-life.mp3
+GRUPPO;Queen;Celebre gruppo rock britannico;ROCK;A Night at the Opera;1975;ROCK;/audio/queen.jpg;You're my best friend;175;ROCK;/audio/queen-youre-my-best-friend.mp3
+GRUPPO;Pink Floyd;Pionieri della musica psichedelica;ROCK;The Dark Side of the Moon;1973;ROCK;/audio/pink-floyd.png;Time;424;ROCK;/audio/pink-floyd-time.mp3
+GRUPPO;Pink Floyd;Pionieri della musica psichedelica;ROCK;The Dark Side of the Moon;1973;ROCK;/audio/pink-floyd.png;Money;392;ROCK;/audio/pink-floyd-money.mp3
+GRUPPO;Pink Floyd;Pionieri della musica psichedelica;ROCK;The Dark Side of the Moon;1973;ROCK;/audio/pink-floyd.png;Breathe (In the air);173;ROCK;/audio/pink-floyd-breathe-in-the-air.mp3
