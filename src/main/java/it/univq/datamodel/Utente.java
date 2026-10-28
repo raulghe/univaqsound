@@ -3,6 +3,7 @@ package it.univq.datamodel;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,8 +35,8 @@ public class Utente implements Serializable {
      * metodo che serve per impostare la lista di generi musicali preferiti dell'utente
      * @param preferenzeMusicali la nuova lista di generi musicali preferiti dell'utente
      */
-    public void setPreferenzeMusicali(Set<GenereMusicale> preferenzeMusicali) {
-        this.preferenzeMusicali = preferenzeMusicali;
+    public void setPreferenzeMusicali(GenereMusicale... generi) {
+        Collections.addAll(this.preferenzeMusicali, generi);
     }
  
     /**

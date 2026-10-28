@@ -8,7 +8,7 @@ import it.univq.service.PersistenzaService;
 import it.univq.service.ImportCatalogoService;
 import it.univq.service.impl.PersistenzaServiceImpl;
 import it.univq.service.impl.ImportCatalogoServiceImpl;
-
+import it.univq.datamodel.GenereMusicale;
 import it.univq.datamodel.Utente;
 import it.univq.datamodel.Utenti;
 import javafx.application.Application;
@@ -36,8 +36,12 @@ public class Runner extends Application {
             }else{
 
             //Inizializzazione utenti di prova
-            Utenti.getIstanza().aggiungiUtente(new Utente("Mario", "Rossi", "admin", "admin@univaq.it", LocalDate.of(1990, 1, 1), true));
-            Utenti.getIstanza().aggiungiUtente(new Utente("Luigi", "Verdi", "user", "luigi@univaq.it", LocalDate.of(2000, 5, 10), false));
+            Utente mario=new Utente("Mario", "Rossi", "admin", "admin@univaq.it", LocalDate.of(1990, 1, 1), true);
+            mario.setPreferenzeMusicali(GenereMusicale.ROCK,GenereMusicale.POP);
+            Utente luigi=new Utente("Luigi", "Verdi", "user", "luigi@univaq.it", LocalDate.of(2000, 5, 10), false);
+            luigi.setPreferenzeMusicali(GenereMusicale.ELETTRONICA);
+            Utenti.getIstanza().aggiungiUtente(mario);
+            Utenti.getIstanza().aggiungiUtente(luigi);
 
             //Import iniziale del catalogo (Artisti, Album, Brani) da file CSV
             ImportCatalogoService importCatalogo = new ImportCatalogoServiceImpl();

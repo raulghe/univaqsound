@@ -22,6 +22,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import it.univq.service.CodaDiRiproduzioneService;
+import it.univq.service.impl.CodaDiRiproduzioneServiceImpl;
+import it.univq.service.PlayerService;
+import it.univq.service.impl.PlayerServiceImpl;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -46,6 +52,9 @@ public class StatisticheController implements Initializable {
 
     private final StatisticheService statisticheService = new StatisticheServiceImpl();
     private final ArtistaService artistaService = new ArtistaServiceImpl();
+    private final PlayerService playerService = PlayerServiceImpl.getIstanza();
+    private final CodaDiRiproduzioneService coda = new CodaDiRiproduzioneServiceImpl();
+
 
     private Utente utenteCorrente;
 
@@ -106,19 +115,38 @@ public class StatisticheController implements Initializable {
     }
 
     private void configuraListaSuggeriti() {
-
         listaSuggeriti.setCellFactory(param -> new ListCell<>() {
+            private final Label btnPlay = new Label("▶");
+            private final Label lblTesto = new Label();
+            private final HBox riga = new HBox(12, btnPlay, lblTesto);
+            {
+                riga.setAlignment(Pos.CENTER_LEFT);
+                btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
+                lblTesto.setStyle("-fx-text-fill: white; -fx-font-size: 13px;");
+                btnPlay.setOnMouseClicked(e -> {
+                    Brano brano = getItem();
+                    if (brano != null) {
+                        coda.aggiungiAllaCoda(brano);
+                        coda.impostaUltimoIndice();
+                        playerService.play();
+                    }
+                });
+            }
+
             @Override
             protected void updateItem(Brano item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
+                    setGraphic(null);
                     setStyle("-fx-background-color: transparent;");
                 } else {
                     String artista = (item.getAlbumBrano() != null && item.getAlbumBrano().getArtistaAlbum() != null)
                             ? item.getAlbumBrano().getArtistaAlbum().getNomeArte() : "-";
-                    setText(item.getTitolo() + " • " + artista + " [" + item.getGenereBrano() + "]");
-                    setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
+                    lblTesto.setText(item.getTitolo() + " • " + artista + " [" + item.getGenereBrano() + "]");
+                    setText(null);
+                    setGraphic(riga);
+                    setStyle("-fx-background-color: transparent;");
                 }
             }
         });
