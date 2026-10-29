@@ -48,10 +48,10 @@ public class PlayerServiceImpl implements PlayerService {
         if(ultimoIndice!=coda.getIndiceBranoCorrente() || mediaPlayer.getStatus()==MediaPlayer.Status.STOPPED && ultimoIndice==coda.getIndiceBranoCorrente()){
             Brano branoCorrente = coda.getCoda().get(coda.getIndiceBranoCorrente());
             String percorso = branoCorrente.getPercorsoFile();
-            URL risorsa = (percorso == null || percorso.isBlank()) ? null : getClass().getResource(percorso.trim());
-            if (risorsa == null) {
-                throw new FileAudioNonTrovatoException("Impossibile riprodurre il brano: " + branoCorrente.getTitolo() + ": file audio non trovato (" + percorso + ")");
-            }
+                URL risorsa = (percorso == null || percorso.isBlank()) ? null : getClass().getResource(percorso.trim());
+                if (risorsa == null) {
+                    throw new FileAudioNonTrovatoException("Impossibile riprodurre il brano: " + branoCorrente.getTitolo() + ": file audio non trovato (" + percorso + ")");
+                }
             Media media = new Media(risorsa.toExternalForm());
         //fermo il brano che c'è nel player e devo aggiornare la cronologia 
             if (mediaPlayer!=null){

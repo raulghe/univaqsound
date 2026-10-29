@@ -31,7 +31,7 @@ public class ArtistaGruppo extends Artista {
 
     /**
      * ritorna la lista di componenti di un Artista Gruppo 
-     * @return
+     * @return {@code<Artista>} la lista di componenti del gruppo}
      */
     public List<Artista> getComponenti(){
         return componenti;
