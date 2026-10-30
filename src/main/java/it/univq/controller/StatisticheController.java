@@ -3,6 +3,7 @@ package it.univq.controller;
 import it.univq.datamodel.Artista;
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.Utente;
+import it.univq.exception.FileAudioNonTrovatoException;
 import it.univq.service.ArtistaService;
 import it.univq.service.StatisticheService;
 import it.univq.service.impl.ArtistaServiceImpl;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -125,10 +127,17 @@ public class StatisticheController implements Initializable {
                 lblTesto.setStyle("-fx-text-fill: white; -fx-font-size: 13px;");
                 btnPlay.setOnMouseClicked(e -> {
                     Brano brano = getItem();
-                    if (brano != null) {
-                        coda.aggiungiAllaCoda(brano);
-                        coda.impostaUltimoIndice();
-                        playerService.play();
+                    try{
+                        if (brano != null) {
+                            coda.aggiungiAllaCoda(brano);
+                            coda.impostaUltimoIndice();
+                            playerService.play();
+                        } 
+                    } catch(FileAudioNonTrovatoException elem){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("ERRORE DI RIPRODUZIONE");
+                        alert.setContentText(elem.getMessage());
+                        alert.showAndWait();
                     }
                 });
             }
@@ -167,4 +176,7 @@ public class StatisticheController implements Initializable {
         List<Brano> proposti = statisticheService.braniProposti(utenteCorrente);
         listaSuggeriti.setItems(FXCollections.observableArrayList(proposti));
     }
+
+
+
 }

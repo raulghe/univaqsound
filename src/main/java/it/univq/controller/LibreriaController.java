@@ -7,6 +7,7 @@ import it.univq.datamodel.Album;
 import it.univq.datamodel.Artista;
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.Utente;
+import it.univq.exception.FileAudioNonTrovatoException;
 import it.univq.service.ArtistaService;
 import it.univq.service.CodaDiRiproduzioneService;
 import it.univq.service.impl.ArtistaServiceImpl;
@@ -15,12 +16,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import it.univq.service.PlayerService;
+import it.univq.service.Riproducibile;
 import it.univq.service.impl.PlayerServiceImpl;
 import it.univq.service.impl.CodaDiRiproduzioneServiceImpl;
 import javafx.scene.control.TableCell;
@@ -93,15 +95,14 @@ public class LibreriaController implements Initializable {
             private final Label btnPlay = new Label("▶");
             {
                 btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
-                btnPlay.setOnMouseClicked(e -> {
-                    Album album = getItem();
+                btnPlay.setOnMouseClicked(e -> {      
+                    Album album = getItem();          
                     if (album != null && !album.getBrani().isEmpty()) {
-                        coda.aggiungiAllaCoda(album);
-                        
-                        playerService.play();
+                        riproduci(album);
                     }
                 });
             }
+
             @Override
             protected void updateItem(Album album, boolean empty) {
                 super.updateItem(album, empty);
@@ -121,12 +122,11 @@ public class LibreriaController implements Initializable {
                 btnPlay.setOnMouseClicked(e -> {
                     Brano brano = getItem();
                     if (brano != null) {
-                        coda.aggiungiAllaCoda(brano);
-                        coda.impostaUltimoIndice();
-                        playerService.play();
+                        riproduci(brano);
                     }
                 });
             }
+
             @Override
             protected void updateItem(Brano brano, boolean empty) {
                 super.updateItem(brano, empty);
@@ -140,6 +140,21 @@ public class LibreriaController implements Initializable {
         });
     
     
+    }
+
+    private void riproduci(Riproducibile r){
+        try{
+            coda.aggiungiAllaCoda(r);
+            if(r instanceof Brano){
+                coda.impostaUltimoIndice();
+            }
+            playerService.play();           
+        } catch (FileAudioNonTrovatoException elem){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRORE DI RIPRODUZIONE");
+            alert.setContentText(elem.getMessage());
+            alert.showAndWait();
+        }
     }
     
 

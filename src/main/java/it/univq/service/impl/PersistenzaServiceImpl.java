@@ -30,9 +30,9 @@ public class PersistenzaServiceImpl implements PersistenzaService {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(percorso))) {
             oos.writeObject(dati);
             logger.log("SALVATAGGIO_DATI", "Stato salvato correttamente su " + percorso);
-        } catch (IOException e) {
-            logger.log("ERRORE_SALVATAGGIO", "Errore nel salvataggio: " + e.getMessage());
-            throw e;
+        } catch (IOException elem) {
+            logger.log("ERRORE_SALVATAGGIO", "Errore nel salvataggio: " + elem.getMessage());
+            throw elem;
         }
     }
 
@@ -65,9 +65,9 @@ public class PersistenzaServiceImpl implements PersistenzaService {
             utenti.getListaUtenti().addAll(dati.getUtenti());
 
             logger.log("CARICAMENTO_DATI", "Stato caricato con successo da " + percorso);
-        } catch (IOException | ClassNotFoundException e) {
-            logger.log("ERRORE_CARICAMENTO", "Errore nel caricamento: " + e.getMessage());
-          throw e;
+        } catch (IOException | ClassNotFoundException elem) {
+            logger.log("ERRORE_CARICAMENTO", "Errore nel caricamento: " + elem.getMessage());
+          throw elem;
         }
     }
 }

@@ -10,12 +10,16 @@ import it.univq.datamodel.Artista;
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.Playlist;
 import it.univq.datamodel.Utente;
+
+import it.univq.exception.DuplicatoException;
+import it.univq.exception.FileAudioNonTrovatoException;
 import it.univq.service.CodaDiRiproduzioneService;
 import it.univq.service.CriterioOrdinamento;
 import it.univq.service.Filtro;
 import it.univq.service.PlayerService;
 import it.univq.service.PlaylistService;
 import it.univq.service.Ricercabile;
+import it.univq.service.Riproducibile;
 import it.univq.service.RicercaService;
 import it.univq.service.impl.CodaDiRiproduzioneServiceImpl;
 import it.univq.service.impl.PlayerServiceImpl;
@@ -98,8 +102,7 @@ public class RicercaController implements Initializable {
                 btnPlay.setOnMouseClicked(e -> {
                     Album album = getItem();
                     if (album != null && !album.getBrani().isEmpty()) {
-                        coda.aggiungiAllaCoda(album);
-                        playerService.play();
+                        riproduci(album);
                     }
                 });
             }
@@ -123,9 +126,7 @@ public class RicercaController implements Initializable {
                 btnPlay.setOnMouseClicked(e -> {
                     Brano brano = getItem();
                     if (brano != null) {
-                        coda.aggiungiAllaCoda(brano);
-                        coda.impostaUltimoIndice();
-                        playerService.play();
+                        riproduci(brano);
                     }
                 });
             }
@@ -251,23 +252,47 @@ public class RicercaController implements Initializable {
         alert.showAndWait();
         return;
     } 
-       List<Playlist> miePlaylist = utenteLoggato.getPlaylist();
+
+    
+    List<Playlist> miePlaylist = utenteLoggato.getPlaylist();
     ChoiceDialog<Playlist> dialog = new ChoiceDialog<>(miePlaylist.get(0), miePlaylist);
     dialog.setTitle("Aggiungi a Playlist");
     dialog.setHeaderText("Aggiungi \"" + brano.getTitolo() + "\" a una playlist");
     dialog.setContentText("Scegli la playlist:");
-      dialog.showAndWait().ifPresent(playlistScelta -> {
+    
+    try {
+        dialog.showAndWait().ifPresent(playlistScelta -> {
           PlaylistService playlistService = new PlaylistServiceImpl();
             playlistService.aggiungiBrano(playlistScelta, brano);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);  
             alert.setContentText("Brano aggiunto con successo a: " + playlistScelta.getNome());
             alert.show();
-       
-    });
-    
-    
-    
+        
+        });
+    } catch(DuplicatoException elem){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRORE DUPLICATO");
+            alert.setContentText(elem.getMessage());
+            alert.showAndWait();
+    }
     
     }
+
+    private void riproduci(Riproducibile r){
+        try{
+            coda.aggiungiAllaCoda(r);
+            if(r instanceof Brano){
+                coda.impostaUltimoIndice();
+            }
+            playerService.play();
+        } catch (FileAudioNonTrovatoException elem){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERRORE DI RIPRODUZIONE");
+            alert.setContentText(elem.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+
     
 }

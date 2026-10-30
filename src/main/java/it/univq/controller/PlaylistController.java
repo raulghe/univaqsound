@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import it.univq.datamodel.Brano;
 import it.univq.datamodel.Playlist;
 import it.univq.datamodel.Utente;
+import it.univq.exception.FileAudioNonTrovatoException;
 import it.univq.service.CodaDiRiproduzioneService;
 import it.univq.service.PlayerService;
 import it.univq.service.PlaylistService;
@@ -88,13 +89,21 @@ public class PlaylistController implements Initializable {
             private final Label btnPlay = new Label("▶");
             {
                 btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
-                btnPlay.setOnMouseClicked(e -> {
-                    Playlist p = getItem();
-                    if (p != null && !p.getBrani().isEmpty()) {
-                        playlistService.riproduciPlaylist(p);
+                
+                    btnPlay.setOnMouseClicked(e -> {
+                        Playlist p = getItem();
+                        try{
+                            if (p != null && !p.getBrani().isEmpty()) {
+                                playlistService.riproduciPlaylist(p);
+                        }
+                    } catch(FileAudioNonTrovatoException elem){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("ERRORE DI RIPRODUZIONE");
+                        alert.setContentText(elem.getMessage());
+                        alert.showAndWait();
                     }
-                });
-            }
+                });     
+        }
             @Override
             protected void updateItem(Playlist p, boolean empty) {
                 super.updateItem(p, empty);
@@ -145,15 +154,24 @@ public class PlaylistController implements Initializable {
             private final Label btnPlay = new Label("▶");
             {
                 btnPlay.setStyle("-fx-text-fill: #EBB946; -fx-cursor: hand; -fx-font-size: 20px; -fx-font-weight: bold;");
-                btnPlay.setOnMouseClicked(e -> {
-                    Brano brano = getItem();
-                    if (brano != null) {
-                        coda.aggiungiAllaCoda(brano);
-                        coda.impostaUltimoIndice();
-                        playerService.play();
-                    }
-                });
-            }
+                
+                    btnPlay.setOnMouseClicked(e -> {
+                        Brano brano = getItem();
+                        try{
+                            if (brano != null) {
+                                coda.aggiungiAllaCoda(brano);
+                                coda.impostaUltimoIndice();
+                                playerService.play();
+                            }
+                        } catch(FileAudioNonTrovatoException elem){
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("ERRORE DI RIPRODUZIONE");
+                            alert.setContentText(elem.getMessage());
+                            alert.showAndWait();
+                        }
+                    });
+            }    
+            
             @Override
             protected void updateItem(Brano brano, boolean empty) {
                 super.updateItem(brano, empty);
@@ -242,7 +260,7 @@ public class PlaylistController implements Initializable {
         playlistService.spostaGiu(playlist, brano);
         tabellaBraniPlaylist.setItems(FXCollections.observableArrayList(playlist.getBrani()));
         tabellaBraniPlaylist.getSelectionModel().select(brano);
-    }
+    } 
 
   
 }

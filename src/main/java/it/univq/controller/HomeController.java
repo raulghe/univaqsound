@@ -9,13 +9,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,8 +25,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import it.univq.datamodel.Brano;
-import it.univq.datamodel.CodaDiRiproduzione;
+
 import it.univq.datamodel.Utente;
+import it.univq.exception.FileAudioNonTrovatoException;
 import it.univq.service.CodaDiRiproduzioneService;
 import it.univq.service.PlayerService;
 import it.univq.service.impl.CodaDiRiproduzioneServiceImpl;
@@ -103,8 +105,8 @@ public class HomeController implements Initializable {
 
 
             
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException elem) {
+            elem.printStackTrace();
         }
     }
 
@@ -141,8 +143,15 @@ public class HomeController implements Initializable {
     @FXML
     private void play(ActionEvent event) {
         
-        player.play();
-       
+        try{
+            player.play();
+        } catch (FileAudioNonTrovatoException elem){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ERRORE DI RIPRODUZIONE");
+                    alert.setContentText(elem.getMessage());
+                    alert.showAndWait();
+        }
+            
        
     }
 
@@ -153,12 +162,26 @@ public class HomeController implements Initializable {
 
     @FXML
     private void indietro(ActionEvent event) {
-        player.indietro();
+        try{
+            player.indietro();
+        } catch (FileAudioNonTrovatoException elem){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ERRORE DI RIPRODUZIONE");
+                    alert.setContentText(elem.getMessage());
+                    alert.showAndWait();
+        }
     }
 
     @FXML
     private void handleAvanti(ActionEvent event) {
-        player.avanti();
+        try{
+            player.avanti();
+        } catch (FileAudioNonTrovatoException elem){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ERRORE DI RIPRODUZIONE");
+                    alert.setContentText(elem.getMessage());
+                    alert.showAndWait();
+        }
     }
 
    
@@ -190,7 +213,7 @@ public class HomeController implements Initializable {
         Centro.getChildren().setAll(vista);
         return (Object)loader.getController();
         
-    } catch (Exception e) {
+    } catch (Exception elem) {
         System.out.println("Errore nel caricamento della vista: " + percorsoFxml);
         return null;
     }
@@ -250,4 +273,7 @@ private void aggiornaBarraPlayer() {
         }
         caricaVista("/viste/gestione.fxml");
     }
+    
+
+
 }

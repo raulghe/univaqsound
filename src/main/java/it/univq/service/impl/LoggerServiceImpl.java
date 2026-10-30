@@ -28,8 +28,8 @@ public class LoggerServiceImpl implements LoggerService {
         try (FileWriter fw = new FileWriter(LOG_FILE, true);
              PrintWriter pw = new PrintWriter(fw)) {
             pw.println(riga);
-        } catch (IOException e) {
-            System.err.println("Errore di scrittura nel file di log: " + e.getMessage());
+        } catch (IOException elem) {
+            System.err.println("Errore di scrittura nel file di log: " + elem.getMessage());
         }
 
         System.out.println(riga);

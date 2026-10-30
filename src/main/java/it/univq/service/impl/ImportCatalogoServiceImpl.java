@@ -101,8 +101,8 @@ public class ImportCatalogoServiceImpl implements ImportCatalogoService {
                     album.getBrani().add(brano);
                     importati++;
 
-                } catch (IllegalArgumentException e) { // include NumberFormatException e valueOf dell'enum
-                    logger.log("ERRORE_IMPORT", "Riga " + numeroRiga + ": " + e.getMessage());
+                } catch (IllegalArgumentException elem) { // include NumberFormatException e valueOf dell'enum
+                    logger.log("ERRORE_IMPORT", "Riga " + numeroRiga + ": " + elem.getMessage());
                 }
             }
         }

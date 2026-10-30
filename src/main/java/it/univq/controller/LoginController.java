@@ -61,8 +61,8 @@ public class LoginController implements Initializable {
             stage.setResizable(true);
             stage.centerOnScreen();
             stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception elem) {
+            elem.printStackTrace();
         }
     }
 }
