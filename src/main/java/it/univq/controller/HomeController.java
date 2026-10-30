@@ -34,6 +34,11 @@ import it.univq.service.impl.CodaDiRiproduzioneServiceImpl;
 import it.univq.service.impl.PlayerServiceImpl;
 import javafx.util.Duration;
 
+/**
+ * controller della vista principale dell'applicazione.
+ * gestisce la barra del player (play, pausa, avanti, indietro, shuffle, ripetizione),
+ * mostra il brano in riproduzione e permette di navigare tra le altre viste.
+ */
 public class HomeController implements Initializable {
     private Utente utenteLoggato;
     private PlayerService player=PlayerServiceImpl.getIstanza();
@@ -59,6 +64,10 @@ public class HomeController implements Initializable {
     
    
 
+    /**
+     * salva l'utente che ha effettuato il logi, mostra il nome dell'utente e rende visibile il pulsante di gestione solo agli amministratori.
+     * @param utente l'{@link Utente} loggato
+     */
     public void salvaUtente(Utente utente) {
         this.utenteLoggato = utente;
        
@@ -70,6 +79,10 @@ public class HomeController implements Initializable {
         
     }
 
+    /**
+     * restituisce l'utente che ha effettuato il login.
+     * @return l'{@link Utente} loggato
+     */
     public Utente getUtenteLoggato() {
         return utenteLoggato;
     }
@@ -86,6 +99,10 @@ public class HomeController implements Initializable {
 
     // tutti metodi della home
 
+    /**
+     * esce dall'account: mette in pausa il player, svuota la coda e torna alla vista di login.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void handleEsci(ActionEvent event) {
         try {
@@ -110,6 +127,10 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * apre la vista della libreria nell'area centrale.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void apriLibreria(ActionEvent event) {
         
@@ -117,6 +138,10 @@ public class HomeController implements Initializable {
         libc.salvaUtente(utenteLoggato);
     }
 
+    /**
+     * apre la vista delle playlist nell'area centrale.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void apriPlaylist(ActionEvent event) {
         PlaylistController pc = (PlaylistController) caricaVista("/viste/playlist.fxml");
@@ -125,6 +150,10 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * apre la vista di ricerca nell'area centrale.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void apriRicerca(ActionEvent event) {
          RicercaController rc = (RicercaController) caricaVista("/viste/ricerca.fxml");
@@ -133,6 +162,10 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * apre la vista delle statistiche nell'area centrale.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void apriStatistiche(ActionEvent event) {
         StatisticheController sc=(StatisticheController)caricaVista("/viste/statistiche.fxml");
@@ -140,6 +173,10 @@ public class HomeController implements Initializable {
     }
 
 
+    /**
+     * avvia o riprende la riproduzione del brano corrente.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void play(ActionEvent event) {
         
@@ -155,11 +192,19 @@ public class HomeController implements Initializable {
        
     }
 
+    /**
+     * mette in pausa la riproduzione.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void pausa(ActionEvent event) {
         player.pausa();
     }
 
+    /**
+     * passa al brano precedente della coda
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void indietro(ActionEvent event) {
         try{
@@ -172,6 +217,10 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * passa al brano successivo della coda.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void handleAvanti(ActionEvent event) {
         try{
@@ -185,6 +234,10 @@ public class HomeController implements Initializable {
     }
 
    
+    /**
+     * attiva o disattiva la riproduzione casuale e aggiorna il colore del pulsante
+     * @param event evento generato dal click sul pulsante
+     */
            @FXML
     private void cambiaShuffle(ActionEvent event) {
         player.cambiaShuffle();
@@ -196,6 +249,10 @@ public class HomeController implements Initializable {
     }
     
 
+    /**
+     * cambia la modalità di ripetizione e aggiorna il colore del pulsante
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void handleRepeat(ActionEvent event) {
        player.cambiaModalitaRipetizione();
@@ -206,6 +263,11 @@ public class HomeController implements Initializable {
         }
     }
     
+    /**
+     * carica un file fxml nell'area centrale della home
+     * @param percorsoFxml percorso del file fxml da caricare
+     * @return il controller della vista caricata, oppure {@code null} se il caricamento fallisce
+     */
     private Object caricaVista(String percorsoFxml) {
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(percorsoFxml));
@@ -218,6 +280,9 @@ public class HomeController implements Initializable {
         return null;
     }
 }
+/**
+ * aggiorna la barra del player con titolo, artista, copertina, tempo corrente e durata del brano corrente
+ */
 private void aggiornaBarraPlayer() {
         Brano brano = player.getBranoCorrente();
         if (brano != null) {
@@ -266,6 +331,10 @@ private void aggiornaBarraPlayer() {
             }
         }
     }
+    /**
+     * apre la vista di gestioneper utente amministratore
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void apriGestione(ActionEvent event){
         if(utenteLoggato == null || !utenteLoggato.isAdministrator()){

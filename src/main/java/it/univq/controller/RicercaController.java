@@ -35,6 +35,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * controller della vista di ricerca,permette di cercare artisti, album e brani per testo, con filtro (genere, anno, durata massima)
+ * e criterio di ordinamento (nome, data, durata, ascolti) per i brani.
+ */
 public class RicercaController implements Initializable {
 
     @FXML private TextField testoRicerca;
@@ -71,14 +75,18 @@ public class RicercaController implements Initializable {
     private final CodaDiRiproduzioneService coda = new CodaDiRiproduzioneServiceImpl();
     private Utente utenteLoggato;
 
-    //metodo per salvare l'utente loggato 
+    /**
+     * salva l'utente che ha effettuato il login.
+     *
+     * @param utente l'{@link Utente} loggato
+     */
     public void salvaUtente(Utente utente) {
         this.utenteLoggato = utente;        
         
     }    
     
     
-    
+   
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Configurazione visualizzazione testi colonne
@@ -187,6 +195,11 @@ public class RicercaController implements Initializable {
 
     }
 
+    /**
+     * esegue la ricerca in base al testo, al filtro e al criterio di ordinamento selezionati.
+     * se è attivo un filtro o un ordinamento mostra solo i brani, altrimenti mostra artisti, album e brani trovati.
+     * @param event evento generato dal click sul pulsante o dal tasto invio
+     */
     @FXML
     private void eseguiRicerca(ActionEvent event) {
         tabellaArtistiCercati.getItems().clear();
@@ -245,6 +258,10 @@ public class RicercaController implements Initializable {
         }
     }
 
+    /**
+     * aggiunge un brano a una playlist scelta dall'utente.
+     * @param brano il {@link Brano} da aggiungere
+     */
     public void aggiungiAllaPlaylist(Brano brano) {
           if ( utenteLoggato.getPlaylist().isEmpty()) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -278,6 +295,10 @@ public class RicercaController implements Initializable {
     
     }
 
+    /**
+     * aggiunge un elemento alla coda di riproduzione e avvia la riproduzione.
+     * @param r l'elemento {@link Riproducibile} da riprodurre (album o brano)
+     */
     private void riproduci(Riproducibile r){
         try{
             coda.aggiungiAllaCoda(r);

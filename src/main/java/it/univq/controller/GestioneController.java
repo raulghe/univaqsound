@@ -28,6 +28,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * controller della vista di gestione del catalogo.
+ * permette all'amministratore di aggiungere ed eliminare {@link Brano}, {@link Album} e {@link Artista}
+ */
 public class GestioneController implements Initializable {
 
     // CampiBrano
@@ -64,6 +68,10 @@ public class GestioneController implements Initializable {
        
     }
 
+    /**
+     * aggiunge un nuovo brano alla libreria controllando se esiste l'album associato,il percorso del file audio e il genere del brano
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void aggiungiBrano(ActionEvent event) {
         String albumBrano = campoBranoAlbum.getText();
@@ -132,6 +140,10 @@ public class GestioneController implements Initializable {
         
     }
 
+    /**
+     * aggiunge un nuovo album alla libreria controllando se esiste l'artista associato, il genere e il percorso file della copertina.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void aggiungiAlbum(ActionEvent event) {
        String artistaAlbum = campoAlbumArtista.getText();
@@ -188,6 +200,10 @@ public class GestioneController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * aggiunge un nuovo artista, solista o gruppo, alla libreria controllando se esiste il genere dell'artista.
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void aggiungiArtista(ActionEvent event) {
         String nomeArtista = campoArtistaNome.getText();
@@ -238,6 +254,10 @@ public class GestioneController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * elimina un brano dalla libreria e dal suo album
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void eliminaBrano(ActionEvent event) {
         String titolo = branoDaEliminare.getText() ;
@@ -275,6 +295,10 @@ public class GestioneController implements Initializable {
         }
     }
 
+    /**
+     * elimina un album dalla libreria e dalla discografia dell'artista
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void eliminaAlbum(ActionEvent event) {
         String titolo = albumDaEliminare.getText();
@@ -310,6 +334,10 @@ public class GestioneController implements Initializable {
         }
     }
 
+    /**
+     * elimina un artista dalla libreria
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void eliminaArtista(ActionEvent event) {
         String nome = artistaDaEliminare.getText() ;

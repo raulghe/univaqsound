@@ -34,6 +34,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * controller della vista delle statistiche.mostra le classifiche dei brani e degli artisti più ascoltati (tabelle e grafici),
+ * il tempo totale di ascolto dell'utente loggato e i brani che gli vengono suggeriti.
+ */
 public class StatisticheController implements Initializable {
 
     @FXML private Label labelTempoAscolto;
@@ -60,6 +64,7 @@ public class StatisticheController implements Initializable {
 
     private Utente utenteCorrente;
 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configuraTabelle();
@@ -68,11 +73,18 @@ public class StatisticheController implements Initializable {
     }
 
 
+    /**
+     * imposta l'utente corrente
+     * @param utente l'{@link Utente} loggato
+     */
     public void setUtente(Utente utente) {
         this.utenteCorrente = utente;
         caricaDatiUtente();
     }
 
+    /**
+     * configura le colonne delle tabelle e le riempie con i brani e gli artisti più ascoltati.
+     */
     private void configuraTabelle() {
         colTitolo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTitolo()));
         colArtista.setCellValueFactory(c -> new SimpleStringProperty(
@@ -91,6 +103,9 @@ public class StatisticheController implements Initializable {
         tabellaArtisti.setItems(FXCollections.observableArrayList(topArtisti));
     }
 
+    /**
+     * riempie il grafico a barre dei brani più ascoltati e il grafico a torta degli artisti più ascoltati.
+     */
     private void configuraGrafici() {
 
         List<Brano> topBrani = statisticheService.braniPiuAscoltati();
@@ -116,6 +131,9 @@ public class StatisticheController implements Initializable {
         pieChartArtisti.setData(pieData);
     }
 
+    /**
+     * configura le celle della lista dei brani suggeriti.
+     */
     private void configuraListaSuggeriti() {
         listaSuggeriti.setCellFactory(param -> new ListCell<>() {
             private final Label btnPlay = new Label("▶");
@@ -161,6 +179,9 @@ public class StatisticheController implements Initializable {
         });
     }
 
+    /**
+     * mostra il tempo totale di ascolto dell'utente
+     */
     private void caricaDatiUtente() {
         if (utenteCorrente == null) {
             labelTempoAscolto.setText("00:00:00");

@@ -29,6 +29,9 @@ import javafx.scene.control.TableCell;
 import javafx.geometry.Pos;
 
 
+/**
+ * controller della vista della libreria.
+ */
 public class LibreriaController implements Initializable {
     @FXML
     private Label labelStatoSelezione;
@@ -55,16 +58,16 @@ public class LibreriaController implements Initializable {
        
     private final ArtistaService artistaService = new ArtistaServiceImpl();
    
-    //metodo per salvare l'utente loggato 
+    /**
+     * salva l'utente che ha effettuato il login.
+     * @param utente l'{@link Utente} loggato
+     */
     public void salvaUtente(Utente utente) {
         this.utenteLoggato = utente;    
         
         
     }
-    
-    
-    
-    @Override 
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         // specifico cosa mettere nelle colonne
         colonnaArtisti.setCellValueFactory(cellData ->new SimpleStringProperty(cellData.getValue().getNomeArte()));
@@ -142,6 +145,10 @@ public class LibreriaController implements Initializable {
     
     }
 
+    /**
+     * aggiunge un elemento alla coda di riproduzione e avvia la riproduzione.
+     * @param r l'elemento {@link Riproducibile} da riprodurre (album o brano)
+     */
     private void riproduci(Riproducibile r){
         try{
             coda.aggiungiAllaCoda(r);

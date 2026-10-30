@@ -17,6 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
+/**
+ * controller della vista di login,mostra l'elenco degli {@link Utente} disponibili e, dopo la selezione, apre la vista principale.
+ */
 public class LoginController implements Initializable {
 
     @FXML
@@ -33,6 +36,10 @@ public class LoginController implements Initializable {
         
     }
 
+    /**
+     * effettua l'accesso con l'utente selezionato
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void handleAccedi(ActionEvent event) {
         Utente utenteSelezionato = listaUtenti.getSelectionModel().getSelectedItem();

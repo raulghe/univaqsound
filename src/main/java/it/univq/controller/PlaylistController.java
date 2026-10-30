@@ -30,6 +30,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+/**
+ * controller della vista delle playlist,mostra le {@link Playlist} dell'utente loggato e i brani della playlist selezionata.
+ */
 public class PlaylistController implements Initializable {
 
     @FXML private Label labelStatoSelezione;
@@ -55,6 +58,10 @@ public class PlaylistController implements Initializable {
     private final PlayerService playerService = PlayerServiceImpl.getIstanza();
     private final CodaDiRiproduzioneService coda = new CodaDiRiproduzioneServiceImpl();
 
+    /**
+     * salva l'utente che ha effettuato il login.
+     * @param utente l'{@link Utente} loggato
+     */
     public void salvaUtente(Utente utente) {
         this.utenteLoggato = utente;
         aggiornaListaPlaylist();
@@ -218,12 +225,19 @@ public class PlaylistController implements Initializable {
         });
     }
 
+    /**
+     * aggiorna la tabella con le playlist dell'utente loggato.
+     */
     private void aggiornaListaPlaylist() {
         if (utenteLoggato != null) {
             tabellaPlaylist.setItems(FXCollections.observableArrayList(playlistService.getPlaylistUtente(utenteLoggato)));
         }
     }
 
+    /**
+     * crea una nuova playlist
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void handleCreaPlaylist(ActionEvent event) {
         String nome = nomeNuovaPlaylist.getText();
@@ -238,6 +252,10 @@ public class PlaylistController implements Initializable {
             aggiornaListaPlaylist();
     }
 
+    /**
+     * sposta il brano selezionato una posizione più in alto nella playlist
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void handleSpostaSu(ActionEvent event) {
         Playlist playlist = tabellaPlaylist.getSelectionModel().getSelectedItem();
@@ -250,6 +268,10 @@ public class PlaylistController implements Initializable {
         tabellaBraniPlaylist.getSelectionModel().select(brano);
     }
 
+    /**
+     * sposta il brano selezionato una posizione più in basso nella playlist
+     * @param event evento generato dal click sul pulsante
+     */
     @FXML
     private void handleSpostaGiu(ActionEvent event) {
         Playlist playlist = tabellaPlaylist.getSelectionModel().getSelectedItem();
