@@ -93,7 +93,7 @@ public class GestioneController implements Initializable {
         GenereMusicale genere;
         try {
             genere = GenereMusicale.valueOf(genereBrano.toUpperCase());
-        } catch (Exception e) {
+        } catch (IllegalArgumentException elem) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRORE INSERIMENTO");
             alert.setContentText("Genere non valido");
@@ -123,7 +123,7 @@ public class GestioneController implements Initializable {
 
         try {
             persis.salvaStato("stato_app.bin");
-        } catch (IOException e) {
+        } catch (IOException elem) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("SALVATAGGIO");
             alert.setContentText("ERRORE NEL SALVATAGGIO: ");
@@ -155,7 +155,7 @@ public class GestioneController implements Initializable {
         GenereMusicale genere;
         try {
             genere = GenereMusicale.valueOf(genereAlbum.toUpperCase());
-        } catch (Exception e) {
+        } catch (IllegalArgumentException elem) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRORE INSERIMENTO");
             alert.setContentText("Genere non valido");
@@ -187,7 +187,7 @@ public class GestioneController implements Initializable {
 
         try {
             persis.salvaStato("stato_app.bin");
-        } catch (IOException e) {
+        } catch (IOException elem) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("SALVATAGGIO");
             alert.setContentText("ERRORE NEL SALVATAGGIO: ");
@@ -213,7 +213,7 @@ public class GestioneController implements Initializable {
         GenereMusicale genere;
         try {
             genere = GenereMusicale.valueOf(genereArtista.toUpperCase());
-        } catch (Exception e) {
+        } catch (IllegalArgumentException elem) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERRORE INSERIMENTO");
             alert.setContentText("Genere non valido");
@@ -242,7 +242,7 @@ public class GestioneController implements Initializable {
        
         try {
             persis.salvaStato("stato_app.bin");
-        } catch (IOException e) {
+        } catch (IOException elem) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("SALVATAGGIO");
             alert.setContentText("ERRORE NEL SALVATAGGIO: ");
@@ -284,8 +284,12 @@ public class GestioneController implements Initializable {
             }
             try {
                 persis.salvaStato("stato_app.bin");
-            } catch (IOException e) {
-               System.out.println("errore nell' aggiornamento della libreria");
+            } catch (IOException elem) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERRORE");
+                alert.setContentText("Errore nell' aggiornamento della libreria");
+                alert.showAndWait();
+                return;
             }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("SUCCESSO");
@@ -323,8 +327,13 @@ public class GestioneController implements Initializable {
             }
             try {
                 persis.salvaStato("stato_app.bin");
-            } catch (IOException e) {
-                System.out.println("errore nell' aggiornamento della libreria");
+            } catch (IOException elem) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERRORE");
+                alert.setContentText("Errore nell' aggiornamento della libreria");
+                alert.showAndWait();
+                return;
+                
             }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("SUCCESSO");
@@ -361,8 +370,12 @@ public class GestioneController implements Initializable {
             artistaService.rimuoviArtista(artista);
             try {
                 persis.salvaStato("stato_app.bin");
-            } catch (IOException e) {
-                System.out.println("errore nell' aggiornamento della libreria");
+            } catch (IOException elem) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERRORE");
+                alert.setContentText("Errore nell' aggiornamento della libreria");
+                alert.showAndWait();
+                return;
             }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("SUCCESSO");
