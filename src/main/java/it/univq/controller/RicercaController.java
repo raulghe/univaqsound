@@ -97,7 +97,7 @@ public class RicercaController implements Initializable {
         colonnaBrani.setCellValueFactory(cellData ->new SimpleStringProperty(cellData.getValue().getTitolo()));
         colonnaAlbumBrano.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getAlbumBrano().getTitolo()));
         colonnaDurataBrano.setCellValueFactory(cellData -> {int durata = cellData.getValue().getDurata();
-    return new SimpleStringProperty(String.format("%d:%02d", durata / 60, durata % 60));});
+    return new SimpleStringProperty(String.format("%d:%02d\n"+ cellData.getValue().getGenereBrano().toString().toLowerCase() , durata / 60, durata % 60));});
         colonnaPlayAlbum.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
         colonnaPlayBrano.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
         colonnaAggiungiPlaylist.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));

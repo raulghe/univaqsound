@@ -37,3 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Log e stato applicazione ###
+*.log
+stato_app.bin
